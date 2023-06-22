@@ -7,6 +7,7 @@ import version2.Coordinate;
 import version2.EnvUtility;
 import version2.HightLightLayer;
 import version2.PieceTracker;
+import version2.Team;
 
 public class King extends ChessPiece {
 
@@ -37,6 +38,13 @@ public class King extends ChessPiece {
         }
 
         hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
+    }
+
+    @Override
+    public Team getTeam() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTeam'");
     }
         
 }

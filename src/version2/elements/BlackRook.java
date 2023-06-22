@@ -10,7 +10,7 @@ public class BlackRook extends Rook{
 
     public BlackRook(){
         pieceValue = 5;
-        team=Team.WHITE;
+        team=Team.BLACK;
         loadImage(imagePath);
     }
 

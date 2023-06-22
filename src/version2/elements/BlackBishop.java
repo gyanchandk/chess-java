@@ -12,7 +12,7 @@ public class BlackBishop extends Bishop{
 
     public BlackBishop(){
         pieceValue = 5;
-        team=Team.WHITE;
+        team=Team.BLACK;
         loadImage(imagePath);
     }
 

@@ -7,6 +7,7 @@ import version2.Coordinate;
 import version2.EnvUtility;
 import version2.HightLightLayer;
 import version2.PieceTracker;
+import version2.Team;
 
 public class Bishop extends ChessPiece{
     ArrayList<Coordinate> moves= new ArrayList<>();
@@ -28,6 +29,7 @@ public class Bishop extends ChessPiece{
         bishopUtil(row , col, 1, 1);
 
         hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
 
     }
 
@@ -41,6 +43,12 @@ public class Bishop extends ChessPiece{
             nextX=nextX+xOffset;
             nextY=nextY+yOffset;
         }
+    }
+
+    @Override
+    public Team getTeam() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTeam'");
     }
     
 }

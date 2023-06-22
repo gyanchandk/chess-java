@@ -10,7 +10,7 @@ public class BlackKing extends King{
 
     public BlackKing(){
         pieceValue = 5;
-        team=Team.WHITE;
+        team=Team.BLACK;
         loadImage(imagePath);
     }
 

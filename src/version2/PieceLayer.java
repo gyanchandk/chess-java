@@ -15,20 +15,27 @@ public class PieceLayer extends JPanel{
     PieceTracker pt = PieceTracker.getInstance();
 
     private Graphics graphics;
+    private boolean initializationDone=false;
+    private static PieceLayer instance = new PieceLayer();
 
-    PieceLayer(){
+    private PieceLayer(){
         setSize(EnvUtility.getPanelDimension());
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.GREEN));
     }
 
+    public static PieceLayer getInstance(){
+        return instance;
+    }
+
     public void addAllPieces(Graphics g){
-        addPawns();
+        //addPawns();
         addKnights();
-        addBishops();
+        // addBishops();
         addRooks();
-        addQueens();
-        addKings();
+        // addQueens();
+        // addKings();
+
         
     }
 
@@ -113,6 +120,17 @@ public class PieceLayer extends JPanel{
         
     }
 
+    public void getPiecesFromPieceTracker(){
+        for(int row=1;row<=8;row++){
+            for(int col=1;col<=8;col++){
+                ChessPiece piece = pt.getInfo(row, col);
+
+                if(piece!=null)
+                    piece.addImgToPieceLayer(graphics, row, col);
+            }
+        }
+    }
+
 
     @Override
     public void paint(Graphics g) {
@@ -120,7 +138,13 @@ public class PieceLayer extends JPanel{
         this.graphics = g;
         super.paint(g);
 
-        addAllPieces(g);
+        if(!initializationDone)
+            addAllPieces(g);
+        
+        initializationDone=true;
+
+        getPiecesFromPieceTracker();
+
 
     }
 

@@ -7,11 +7,13 @@ import version2.ChessPiece;
 import version2.Coordinate;
 import version2.EnvUtility;
 import version2.HightLightLayer;
+import version2.PieceTracker;
 import version2.Team;
 
 public class WhitePawn extends ChessPiece{
     private String imagePath ="/images/wp.png";
     private HightLightLayer hl = HightLightLayer.getInstance();
+    PieceTracker pt = PieceTracker.getInstance();
     private int pieceValue;
     private Team team;
 
@@ -51,6 +53,7 @@ public class WhitePawn extends ChessPiece{
             moves.add(new Coordinate(row-1, col+1));
 
         hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
     }
     
 }

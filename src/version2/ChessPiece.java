@@ -9,8 +9,11 @@ import javax.imageio.ImageIO;
 public abstract class ChessPiece {
     abstract public String getName();
     abstract public void drawHints(int row,int col);
+    abstract public Team getTeam();
+
     protected BufferedImage pieceImg;
     protected int width = EnvUtility.width;
+    protected ChessRules rules = ChessRules.getInstance();
 
     public void loadImage(String imagePath){
         try {

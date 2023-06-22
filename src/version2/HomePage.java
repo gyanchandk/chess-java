@@ -16,7 +16,7 @@ public class HomePage extends JFrame{
         interactivePanel.setBounds(100,100,500,500);
         pane.add(interactivePanel,1);
 
-        PieceLayer pieceLayer = new PieceLayer();
+        PieceLayer pieceLayer = PieceLayer.getInstance();
         pieceLayer.setBounds(100,100,500,500);
         pane.add(pieceLayer,2);
 

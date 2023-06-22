@@ -11,7 +11,7 @@ public class BlackQueen extends Queen{
 
     public BlackQueen(){
         pieceValue = 5;
-        team=Team.WHITE;
+        team=Team.BLACK;
         loadImage(imagePath);
     }
 
