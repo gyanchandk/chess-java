@@ -68,7 +68,7 @@ public class HightLightLayer extends JPanel{
     public void makeHints(Graphics g){
 
         Graphics2D g2d = (Graphics2D)g;
-        g.setColor(new Color(144,24,181));
+        g.setColor(EnvUtility.getHintColor());
 
         if(!showHints)return;
         Coordinate canvasPos;
@@ -76,9 +76,23 @@ public class HightLightLayer extends JPanel{
             canvasPos = EnvUtility.coordToXY(c.getX(), c.getY());
             
             Rectangle rect = new Rectangle(
-                canvasPos.getX()+20, canvasPos.getY()+10, 10, 10);
-
+                canvasPos.getX(), canvasPos.getY(), EnvUtility.width, EnvUtility.width);
             g2d.fill(rect);
+            
+            if((c.getX()+c.getY())%2==0){
+                g.setColor(Color.WHITE);
+            }else{
+                g.setColor(EnvUtility.getBoardColor());
+            }
+            
+
+            Rectangle rect2 = new Rectangle(
+                canvasPos.getX()+5, canvasPos.getY()+5, EnvUtility.width-10, EnvUtility.width-10);
+            g2d.fill(rect2);
+
+            g.setColor(EnvUtility.getHintColor());
+
+            
         }
 
 

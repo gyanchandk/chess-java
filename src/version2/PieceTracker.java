@@ -6,6 +6,7 @@ public class PieceTracker {
     private ChessPiece  tracker[] = new ChessPiece[64];
     private static PieceTracker instance = new PieceTracker();
     private ArrayList<Coordinate> permissibleCells = new ArrayList<>();
+    private GameControl control = GameControl.getInstance();
 
     private PieceTracker(){
 
@@ -15,9 +16,11 @@ public class PieceTracker {
         for(ChessPiece piece:tracker){
             if(piece!=null){
                 piece.resetMovedStatus();
+
             }
             
         }
+        
     }
     public static PieceTracker getInstance(){
         return instance;
@@ -29,6 +32,7 @@ public class PieceTracker {
 
         if(piece!=null){
             piece.setMoved();
+            control.changeTurn();
         }
         
         tracker[index]=piece;

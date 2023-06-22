@@ -11,6 +11,7 @@ public class InteractivePanel extends JPanel implements MouseListener{
     HightLightLayer hl = HightLightLayer.getInstance();
     PieceLayer pieceLayer = PieceLayer.getInstance();
     ChessRules rules = ChessRules.getInstance();
+    private GameControl control = GameControl.getInstance();
 
     private boolean hintOn=false;
     private Coordinate prevState;
@@ -49,6 +50,18 @@ public class InteractivePanel extends JPanel implements MouseListener{
 
     }
 
+    public boolean checkForTurn(int row,int col){
+        ChessPiece piece = pt.getInfo(row, col);
+
+        if(piece==null)return false;
+
+        if(piece.getTeam()!=control.getNextTurn()){
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -58,6 +71,17 @@ public class InteractivePanel extends JPanel implements MouseListener{
         int col=e.getX()/50;
         
         if(!check(row, col))return;
+
+        hl.setHighlightSquare(row, col);
+
+        System.out.println("===turn==:"+control.getNextTurn());
+
+        if(!hintOn){
+            if(!checkForTurn(row, col))return;
+        }
+       
+
+
 
         if(hintOn){
             requestForPieceMove(row,col);
@@ -71,7 +95,7 @@ public class InteractivePanel extends JPanel implements MouseListener{
 
         
 
-        hl.setHighlightSquare(row, col);
+       
 
         ChessPiece piece = pt.getInfo(row, col);
 

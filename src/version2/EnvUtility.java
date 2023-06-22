@@ -49,6 +49,12 @@ public class EnvUtility {
         return colors[0];
     }
 
+    public static Color getHintColor(){
+        Color hintColor = new Color(207, 51, 27);
+
+        return hintColor;
+    }
+
     public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
