@@ -8,6 +8,7 @@ public class HomePage extends JFrame{
     HomePage(){
         setSize(800,800);
         setTitle("Chess");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JLayeredPane pane = getLayeredPane();
 
