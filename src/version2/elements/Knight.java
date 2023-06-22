@@ -27,8 +27,6 @@ public class Knight extends ChessPiece{
     public void drawHints(int row, int col) {
         ArrayList<Coordinate> moves= new ArrayList<>();
 
-        Team team = pt.getInfo(row, col).getTeam();
-
         int xOffset[]={-2,-2,-1,-1,1,1,2,2};
         int yOffset[]={1,-1,2,-2,2,-2,1,-1};
 
@@ -38,7 +36,7 @@ public class Knight extends ChessPiece{
             int nextY = col+yOffset[i];
 
             if(EnvUtility.check(nextX,nextY) ){
-                
+
                 if(rules.checkForSameTeam(row, col, nextX, nextY)){
                     moves.add(new Coordinate(nextX, nextY));
                 }

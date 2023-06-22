@@ -39,7 +39,18 @@ public class Bishop extends ChessPiece{
         int nextY= y+yOffset;
         
         while(EnvUtility.check(nextX, nextY)){
-            moves.add(new Coordinate(nextX, nextY));
+
+            if(rules.checkForSameTeam(x, y, nextX, nextY)){
+                moves.add(new Coordinate(nextX, nextY));
+            }
+            else{
+                break;
+            }
+
+            if(pt.getInfo(nextX, nextY)!=null){
+                break;
+            }
+            
             nextX=nextX+xOffset;
             nextY=nextY+yOffset;
         }

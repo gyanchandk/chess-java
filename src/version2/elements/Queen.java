@@ -24,27 +24,20 @@ public class Queen extends ChessPiece{
     @Override
     public void drawHints(int row, int col) {
         moves.clear();
-        bishopUtil(row, col, 1, -1);
-        bishopUtil(row, col, -1, -1);
-        bishopUtil(row,col , -1, 1);
-        bishopUtil(row , col, 1, 1);
-
-        for(int nextX=row-7; nextX<=8;nextX++){
-            if(EnvUtility.check(nextX, col)){
-                moves.add(new Coordinate(nextX,col));
-            }
-        }
-
-        for(int nextY=col-7;nextY<=8;nextY++){
-            if(EnvUtility.check(row, nextY)){
-                moves.add(new Coordinate(row, nextY));
-            }
-        }
+        
+        addBishopRules(row, col);
+        addRookRules(row,col);
 
         hl.showHints(moves);
         pt.updatePermissibleCells(moves);
     }
 
+    public void addBishopRules(int row,int col){
+        bishopUtil(row, col, 1, -1);
+        bishopUtil(row, col, -1, -1);
+        bishopUtil(row,col , -1, 1);
+        bishopUtil(row , col, 1, 1);
+    }
 
     private void bishopUtil(int x,int y,int xOffset,int yOffset){
 
@@ -52,10 +45,94 @@ public class Queen extends ChessPiece{
         int nextY= y+yOffset;
         
         while(EnvUtility.check(nextX, nextY)){
-            moves.add(new Coordinate(nextX, nextY));
+
+            if(rules.checkForSameTeam(x, y, nextX, nextY)){
+                moves.add(new Coordinate(nextX, nextY));
+            }
+            else{
+                break;
+            }
+
+            if(pt.getInfo(nextX, nextY)!=null){
+                break;
+            }
+
             nextX=nextX+xOffset;
             nextY=nextY+yOffset;
         }
+    }
+
+    public void addRookRules(int row,int col){
+        //to-left
+        for(int nextY=col-1;nextY>=1;nextY--){
+            if(EnvUtility.check(row, nextY)){
+
+                if(rules.checkForSameTeam(row, col, row, nextY)){
+                    moves.add(new Coordinate(row, nextY));
+                }
+                else{
+                    break;
+                }
+
+                if(pt.getInfo(row, nextY)!=null){
+                    break;
+                }
+            }
+        }
+        
+        //to-right
+        for(int nextY=col+1;nextY<=8;nextY++){
+            if(EnvUtility.check(row, nextY)){
+
+                if(rules.checkForSameTeam(row, col, row, nextY)){
+                    moves.add(new Coordinate(row, nextY));
+                }
+                else{
+                    break;
+                }
+
+                if(pt.getInfo(row, nextY)!=null){
+                    break;
+                }
+
+                
+                
+            }
+        }
+        //to-down
+        for(int nextX=row+1; nextX<=8;nextX++){
+            if(EnvUtility.check(nextX, col)){
+
+                if(rules.checkForSameTeam(row, col, nextX, col)){
+                    moves.add(new Coordinate(nextX,col));
+                }
+                else{
+                    break;
+                }
+
+                if(pt.getInfo(nextX, col)!=null){
+                    break;
+                }
+            }
+        }
+        
+        //to-up
+        for(int nextX=row-1; nextX>=1;nextX--){
+            if(EnvUtility.check(nextX, col)){
+
+                if(rules.checkForSameTeam(row, col, nextX, col)){
+                    moves.add(new Coordinate(nextX,col));
+                }
+                else{
+                    break;
+                }
+
+                if(pt.getInfo(nextX, col)!=null){
+                    break;
+                }
+            }
+        }
+
     }
 
     @Override

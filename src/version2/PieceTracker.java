@@ -10,6 +10,15 @@ public class PieceTracker {
     private PieceTracker(){
 
     }
+
+    public void initializeMovesStatus(){
+        for(ChessPiece piece:tracker){
+            if(piece!=null){
+                piece.resetMovedStatus();
+            }
+            
+        }
+    }
     public static PieceTracker getInstance(){
         return instance;
 
@@ -17,6 +26,11 @@ public class PieceTracker {
 
     public void updatePiecePos(int row, int col, ChessPiece piece){
         int index = EnvUtility.getIndex(row, col);
+
+        if(piece!=null){
+            piece.setMoved();
+        }
+        
         tracker[index]=piece;
     }
 

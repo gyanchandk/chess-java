@@ -29,12 +29,14 @@ public class PieceLayer extends JPanel{
     }
 
     public void addAllPieces(Graphics g){
-        //addPawns();
+        addPawns();
         addKnights();
-        // addBishops();
+        addBishops();
         addRooks();
-        // addQueens();
-        // addKings();
+        addQueens();
+        addKings();
+
+        pt.initializeMovesStatus();
 
         
     }

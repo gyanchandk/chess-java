@@ -14,6 +14,17 @@ public abstract class ChessPiece {
     protected BufferedImage pieceImg;
     protected int width = EnvUtility.width;
     protected ChessRules rules = ChessRules.getInstance();
+    protected boolean hasMoved=false;
+
+    public void setMoved(){
+        hasMoved = true;
+    }
+    public boolean getMovedStatus(){
+        return hasMoved;
+    }
+    public void resetMovedStatus(){
+        hasMoved=false;
+    }
 
     public void loadImage(String imagePath){
         try {

@@ -15,10 +15,19 @@ public class King extends ChessPiece {
 
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
-
+    protected boolean hasMoved=false;
+    
     @Override
     public String getName() {
         return "King";
+    }
+
+    public void setMoved(){
+        hasMoved = true;
+    }
+
+    public boolean getMovedStatus(){
+        return hasMoved;
     }
 
     @Override
@@ -32,7 +41,10 @@ public class King extends ChessPiece {
             int nextY = col+yOffset[i];
 
             if(EnvUtility.check(nextX, nextY)){
-                moves.add(new Coordinate(nextX, nextY));
+                if(rules.checkForSameTeam(row, col, nextX, nextY)){
+                    moves.add(new Coordinate(nextX, nextY));
+                }
+                
             }
             
         }
