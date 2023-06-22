@@ -14,6 +14,8 @@ public class Knight extends ChessPiece{
     private BufferedImage knightImg;
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
+    int pieceValue;
+    Team team;
 
     Knight(){
         pieceValue = 3;
@@ -28,7 +30,7 @@ public class Knight extends ChessPiece{
         }
     }
     @Override
-    String getName() {
+    public String getName() {
         return "Knight";
     }
 

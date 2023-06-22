@@ -17,7 +17,7 @@ public class HomePage extends JFrame{
 
         PieceLayer pieceLayer = new PieceLayer();
         pieceLayer.setBounds(100,100,500,500);
-        pane.add(pieceLayer,2);
+        //pane.add(pieceLayer,2);
 
         HightLightLayer hightLightLayer = HightLightLayer.getInstance();
         hightLightLayer.setBounds(100, 100, 500, 500);
@@ -26,10 +26,6 @@ public class HomePage extends JFrame{
         ChessBoard chessBoard = new ChessBoard();
         chessBoard.setBounds(100, 100, 500, 500);
         pane.add(chessBoard,4);
-
-        
-        hightLightLayer.setHighlightSquare(4, 5);
-        //hightLightLayer.setHighlightSquare(4, 6);
 
         setVisible(true);
     }

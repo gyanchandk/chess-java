@@ -12,7 +12,6 @@ public class ChessBoard extends JPanel {
     
     ChessBoard(){
         setSize(EnvUtility.getPanelDimension());
-        //setSize(500, 500);
         setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 

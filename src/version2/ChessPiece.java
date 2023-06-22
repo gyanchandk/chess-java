@@ -1,8 +1,8 @@
 package version2;
 
 public abstract class ChessPiece {
-    int pieceValue;
-    abstract String getName();
-    abstract void drawHints(int row,int col);
+    abstract public String getName();
+    abstract public void drawHints(int row,int col);
+    
 }
 

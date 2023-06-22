@@ -14,6 +14,8 @@ public class Pawn extends ChessPiece{
     private BufferedImage whitePawnImg;
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
+    int pieceValue;
+    Team team;
 
 
     Pawn(){
@@ -28,7 +30,7 @@ public class Pawn extends ChessPiece{
         }
     }
     @Override
-    String getName() {
+    public String getName() {
         return "Pawn";
     }
 
