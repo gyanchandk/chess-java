@@ -11,7 +11,7 @@ public class EnvUtility {
     
     public static int getIndex(int row,int col){
 
-        return (col-1)*8+row;
+        return (col-1)*8+row-1;
     }
 
     public static Coordinate indexToRowCol(int index){

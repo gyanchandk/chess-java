@@ -17,7 +17,7 @@ public class HomePage extends JFrame{
 
         PieceLayer pieceLayer = new PieceLayer();
         pieceLayer.setBounds(100,100,500,500);
-        //pane.add(pieceLayer,2);
+        pane.add(pieceLayer,2);
 
         HightLightLayer hightLightLayer = HightLightLayer.getInstance();
         hightLightLayer.setBounds(100, 100, 500, 500);

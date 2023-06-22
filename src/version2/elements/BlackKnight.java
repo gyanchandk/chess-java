@@ -1,15 +1,16 @@
 package version2.elements;
 
-import version2.ChessPiece;
 import version2.Team;
 
-public class BlackKnight extends ChessPiece{
+public class BlackKnight extends Knight{
+    private String imagePath ="/images/bn.png";
     private int pieceValue;
     private Team team;
 
     public BlackKnight(){
         pieceValue = 3;
         team = Team.BLACK;
+        loadImage(imagePath);
     }
 
     public int getPieceValue() {
@@ -24,7 +25,4 @@ public class BlackKnight extends ChessPiece{
         return "Black Knight";
     }
     
-    public void drawHints(int row,int col){
-
-    }
 }
