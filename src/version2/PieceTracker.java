@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import version2.elements.BlackBishop;
 import version2.elements.BlackKing;
+import version2.elements.BlackKnight;
 import version2.elements.BlackPawn;
 import version2.elements.BlackQueen;
 import version2.elements.BlackRook;
 import version2.elements.WhiteBishop;
 import version2.elements.WhiteKing;
+import version2.elements.WhiteKnight;
 import version2.elements.WhitePawn;
 import version2.elements.WhiteQueen;
 import version2.elements.WhiteRook;
@@ -18,6 +20,7 @@ public class PieceTracker {
     private static PieceTracker instance = new PieceTracker();
     private ArrayList<Coordinate> permissibleCells = new ArrayList<>();
     private GameControl control = GameControl.getInstance();
+    HightLightLayer hl = HightLightLayer.getInstance();
 
     private boolean  gameHasStarted=false;
     private Coordinate blackKingCoordinate;
@@ -68,8 +71,15 @@ public class PieceTracker {
                 whiteKingCoordinate= new Coordinate(row, col);
             }
 
-            isWhiteKingChecked(whiteKingCoordinate);
-            isBlackKingChecked(blackKingCoordinate);
+            if(isWhiteKingChecked(whiteKingCoordinate)){
+                hl.highlightKingSquareWhenChecked(whiteKingCoordinate);
+            }
+            else if(isBlackKingChecked(blackKingCoordinate)){
+                hl.highlightKingSquareWhenChecked(blackKingCoordinate);
+            }else{
+                hl.highlightKingSquareWhenChecked(null);
+            }
+            
 
         }
 
@@ -108,6 +118,9 @@ public class PieceTracker {
         int row= c.getX();
         int col= c.getY();
 
+        if(isCheckedBy(new BlackKnight(), row, col, new WhiteKnight()))
+            return true;
+
         if(isCheckedBy(new BlackBishop(), row, col, new WhiteBishop()))
             return true;
         
@@ -126,11 +139,12 @@ public class PieceTracker {
 
     public boolean  isWhiteKingChecked(Coordinate c){
 
-        System.out.println("game has started checking if white king is checked");
         int row= c.getX();
         int col= c.getY();
 
-
+        if(isCheckedBy(new WhiteKnight(), row, col, new BlackKnight()))
+            return true;
+            
         if(isCheckedBy(new WhiteBishop(), row, col,new BlackBishop()))
             return true;
 

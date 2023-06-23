@@ -7,6 +7,7 @@ public class ChessRules {
 
     private static ChessRules instance = new ChessRules();
     private PieceTracker pt = PieceTracker.getInstance();
+    HightLightLayer hl = HightLightLayer.getInstance();
     private ChessRules(){
 
     }

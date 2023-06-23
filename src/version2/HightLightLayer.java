@@ -12,6 +12,7 @@ public class HightLightLayer extends JPanel{
     private Coordinate hc;
     private  boolean showHints=false;
     private ArrayList<Coordinate> hintSquares;
+    private Coordinate kCoordinate;
 
     private ChessPiece currPiece;
 
@@ -51,12 +52,30 @@ public class HightLightLayer extends JPanel{
 
         }
 
+        if(kCoordinate!=null){
+            Coordinate c = EnvUtility.coordToXY(kCoordinate.getX(), kCoordinate.getY());
+            Rectangle rectangle = new Rectangle(
+                c.getX(), c.getY(), EnvUtility.width, EnvUtility.width);
+            
+            g2d.setColor(Color.red);
+            g2d.fill(rectangle);
+
+        }
+
+
+
 
     }
 
     public void setHighlightSquare(int row,int col){
         hc = new Coordinate(row, col);
         repaint();
+    }
+
+    public void highlightKingSquareWhenChecked(Coordinate coordinate){
+        kCoordinate=coordinate;
+        repaint();
+
     }
 
     public void showHints(ArrayList<Coordinate> hintCoord){
