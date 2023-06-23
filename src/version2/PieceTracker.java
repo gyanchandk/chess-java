@@ -128,9 +128,10 @@ public class PieceTracker {
                 hl.highlightKingSquareWhenChecked(whiteKingCoordinate);
                 System.out.println("called for white-king coor"+ whiteKingCoordinate+"to highlight");
                 whiteKingInCheck = true;
+
             }
             else{
-                hl.highlightKingSquareWhenChecked(null);
+    
                 whiteKingInCheck = false;
             }
 
@@ -148,10 +149,14 @@ public class PieceTracker {
                 hl.highlightKingSquareWhenChecked(blackKingCoordinate);
                 blackKingInCheck = true;
             }else{
-                hl.highlightKingSquareWhenChecked(null);
+                
                 blackKingInCheck =false;
             }
             
+            if(!whiteKingInCheck && !blackKingInCheck){
+                hl.highlightKingSquareWhenChecked(null);
+
+            }
 
         return true;
 

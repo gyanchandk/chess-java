@@ -74,6 +74,8 @@ public class HightLightLayer extends JPanel{
 
     public void highlightKingSquareWhenChecked(Coordinate coordinate){
         kCoordinate=coordinate;
+
+        System.out.println("called for"+kCoordinate+ "to highlight");
         repaint();
 
     }

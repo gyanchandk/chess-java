@@ -13,7 +13,7 @@ import version2.Team;
 public class WhitePawn extends Pawn{
     private String imagePath ="/images/wp.png";
     private HightLightLayer hl = HightLightLayer.getInstance();
-    PieceTracker pt = PieceTracker.getInstance();
+    private PieceTracker pt = PieceTracker.getInstance();
     private int pieceValue;
     private Team team;
     
