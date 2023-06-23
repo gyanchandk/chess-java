@@ -22,16 +22,11 @@ public class King extends ChessPiece {
         return "King";
     }
 
-    public void setMoved(){
-        hasMoved = true;
-    }
-
-    public boolean getMovedStatus(){
-        return hasMoved;
-    }
+    
 
     @Override
     public void drawHints(int row, int col) {
+        System.out.println(getName()+":"+getMovedStatus());
         moves.clear();
         int xOffset[]={-1,0,1,-1,1,-1,0,1};
         int yOffset[]={-1,-1,-1,0,0,1,1,1};
@@ -46,8 +41,12 @@ public class King extends ChessPiece {
                 }
                 
             }
+
+            
             
         }
+
+        addHintsForCastling(row);
 
         hl.showHints(moves);
         pt.updatePermissibleCells(moves);
@@ -57,6 +56,61 @@ public class King extends ChessPiece {
     public Team getTeam() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTeam'");
+    }
+
+    public boolean checkForEmptySquares(int row,int start,int end){
+
+        for(int col=start;col<=end;col++){
+            if(pt.getInfo(row, col)!=null){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    public boolean checkForARook(int row){
+        //check for a rook
+        ChessPiece aRook = pt.getInfo(row, 1);
+
+        if(aRook!=null){
+            System.out.println("aRook:"+aRook.getMovedStatus());
+            if(!aRook.getMovedStatus() && checkForEmptySquares(row, 2, 4)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean checkForHRook(int row){
+        //check for a rook
+        ChessPiece hRook = pt.getInfo(row, 8);
+
+        if(hRook!=null){
+            System.out.println("hRook:"+hRook.getMovedStatus());
+            if(!hRook.getMovedStatus() && checkForEmptySquares(row, 6, 7)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public void addHintsForCastling(int row){
+
+        if(hasMoved)return;
+        //king will be in 5th col
+
+        if(checkForARook(row)){
+            System.out.println("******* castling allowed with a rook");
+            moves.add(new Coordinate(row, 3));
+        }
+
+        if(checkForHRook(row)){
+            System.out.println("******* castling allowed with h rook");
+            moves.add(new Coordinate(row, 7));
+        }
+
+
     }
         
 }

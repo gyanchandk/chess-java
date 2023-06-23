@@ -17,13 +17,19 @@ public abstract class ChessPiece {
     protected boolean hasMoved=false;
 
     public void setMoved(){
+        
         hasMoved = true;
+        System.out.println("########### moved :"+getName()+":"+hasMoved);
     }
+
     public boolean getMovedStatus(){
         return hasMoved;
     }
+    
     public void resetMovedStatus(){
+        
         hasMoved=false;
+        System.out.println(getName()+":"+hasMoved);
     }
 
     public void loadImage(String imagePath){

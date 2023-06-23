@@ -13,19 +13,10 @@ public class Rook extends ChessPiece{
     ArrayList<Coordinate> moves= new ArrayList<>();
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
-    protected boolean hasMoved=false;
 
     @Override
     public String getName() {
         return "Rook";
-    }
-
-    public void setMoved(){
-        hasMoved = true;
-    }
-
-    public boolean getMovedStatus(){
-        return hasMoved;
     }
 
     @Override
