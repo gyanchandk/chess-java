@@ -65,44 +65,4 @@ public class ChessRules {
 
     }
 
-    public boolean checkIfKingChecked(){
-
-        System.out.println("King check is called!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        // Coordinate wKing = pt.getWhiteKingCoordinate();
-        // Coordinate bKing = pt.getBlackKingCoordinate();
-
-        // if(wKing==null || bKing==null)return false;
-
-        // ArrayList<Coordinate> moves= new ArrayList<>();
-
-        // ChessPiece king = new WhiteKing();
-
-        // int row=wKing.getX(), col=wKing.getY();
-
-        // king.fillBishopMoves(row, col, moves);
-        // if(foundPieceInMoves(moves, new BlackBishop())){
-        //     return true;
-        // }
-        // moves.clear();
-
-        // king.fillRookMoves(row, col, moves);
-        // if(foundPieceInMoves(moves, new BlackRook())){
-        //     return true;
-        // }
-        // moves.clear();
-
-        // king.fillQueenMoves(row, col, moves);
-        // if(foundPieceInMoves(moves, new Queen())){
-        //     return true;
-        // }
-        // moves.clear();
-
-        
-
-
-
-        return false;
-    }
-    
 }
