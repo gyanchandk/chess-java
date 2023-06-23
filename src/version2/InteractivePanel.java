@@ -44,16 +44,18 @@ public class InteractivePanel extends JPanel implements MouseListener{
         if(newCol==3){
             //a side castling
             ChessPiece aRook = pt.getInfo(row, 1);
-            pt.updatePiecePos(row,1 ,null);
-            pt.updatePiecePos(row,4 , aRook);
+
+            pt.updatePiecePos(row, 1, row,4,aRook);
+
+            
 
         }
 
         if(newCol==7){
             //h side castling
             ChessPiece hRook = pt.getInfo(row, 8);
-            pt.updatePiecePos(row,8 ,null);
-            pt.updatePiecePos(row,6 , hRook);
+
+            pt.updatePiecePos(row, 8,row,6, hRook);
         }
 
         System.out.println("@@@@@@@@@@@@@@@@castling has done");
@@ -73,19 +75,21 @@ public class InteractivePanel extends JPanel implements MouseListener{
 
         ChessPiece piece = pt.getInfo(row, col);
 
-        
-
-        pt.updatePiecePos(row, col, null);
-        pt.updatePiecePos(newRow, newCol, piece);
+        boolean legalMove= pt.updatePiecePos(row, col, newRow,newCol,piece);
 
         //special case of castling
         if(piece instanceof King){
             
-            handleCastling(row, newRow, newCol);
+            if(legalMove)
+                handleCastling(row, newRow, newCol);
 
         }
 
-        pieceLayer.repaint();
+        if(legalMove){
+            pieceLayer.repaint();
+        }
+
+        
 
     }
 

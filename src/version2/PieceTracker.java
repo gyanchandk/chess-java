@@ -26,6 +26,11 @@ public class PieceTracker {
     private Coordinate blackKingCoordinate;
     private Coordinate whiteKingCoordinate;
 
+    private boolean whiteKingInCheck=false;
+    private boolean blackKingInCheck=false;
+
+    private Coordinate prevState;
+
 
 
     private PieceTracker(){
@@ -49,20 +54,56 @@ public class PieceTracker {
         gameHasStarted = true;
         
     }
-
-    public void updatePiecePos(int row, int col, ChessPiece piece){
+    public boolean updatePiecePos(int row,int col,ChessPiece piece){
+        //this is called when board is set initially.
         int index = EnvUtility.getIndex(row, col);
-
-        if(piece!=null){
-            piece.setMoved();
-            control.changeTurn();
-        }
-        
         tracker[index]=piece;
+        return true;
+    }
 
-        if(piece==null)return;
+    public boolean updatePiecePos(int row, int col,int newRow,int newCol,ChessPiece piece){
 
-        if(gameHasStarted){
+        //this is called for moves on board after start 
+        if(piece==null){
+            System.out.println("Error case ! piece can't be null");
+            return false;
+        }
+        ChessPiece targetPiece = getInfo(newRow, newCol);
+
+        int oldPosition = EnvUtility.getIndex(row, col);
+        tracker[oldPosition]=null;
+
+        int newPosition = EnvUtility.getIndex(newRow, newCol);
+        tracker[newPosition]=piece;
+
+
+        if(!handleKingCheckScenario(piece, newRow, newCol)){
+            //revert back
+            tracker[newPosition]=targetPiece;
+            tracker[oldPosition]=piece;
+
+            return false;
+        }
+
+        piece.setMoved();
+        control.changeTurn();
+        
+        return true;
+
+    }
+
+    public boolean handleKingCheckScenario(ChessPiece piece,int row,int col){
+
+        //returning true means move is legal:king is not in check or discoved check;
+
+        if(piece==null){
+            System.out.println("Error case : piece should not be null!!!!");
+            return false;
+        }
+
+        Team currTeam = piece.getTeam();
+
+        
             getKingsPosition();
             if(piece.getClass().equals(new BlackKing().getClass())){
                 blackKingCoordinate = new Coordinate(row, col);
@@ -72,18 +113,48 @@ public class PieceTracker {
             }
 
             if(isWhiteKingChecked(whiteKingCoordinate)){
+
+                if(currTeam==Team.WHITE){
+                    System.out.println("Either it is pinned piece /king is in check");
+                    return false;
+                }
+
+                //white king was checked and current move does not take care
+                if(whiteKingInCheck){
+                    System.out.println("!!!!!!!!!!Illegal move : white king is in check");
+                    return false;
+                }
+
                 hl.highlightKingSquareWhenChecked(whiteKingCoordinate);
+                System.out.println("called for white-king coor"+ whiteKingCoordinate+"to highlight");
+                whiteKingInCheck = true;
             }
-            else if(isBlackKingChecked(blackKingCoordinate)){
+            else{
+                hl.highlightKingSquareWhenChecked(null);
+                whiteKingInCheck = false;
+            }
+
+            if(isBlackKingChecked(blackKingCoordinate)){
+
+                if(currTeam==Team.BLACK){
+                    System.out.println("Either it is pinned piece /king is in check");
+                    return false;
+                }
+
+                if(blackKingInCheck){
+                    System.out.println("!!!!!!!!!!Illegal move : BLACK king is in check");
+                    return false;
+                }
                 hl.highlightKingSquareWhenChecked(blackKingCoordinate);
+                blackKingInCheck = true;
             }else{
                 hl.highlightKingSquareWhenChecked(null);
+                blackKingInCheck =false;
             }
             
 
-        }
+        return true;
 
-        
 
     }
 
@@ -144,7 +215,7 @@ public class PieceTracker {
 
         if(isCheckedBy(new WhiteKnight(), row, col, new BlackKnight()))
             return true;
-            
+
         if(isCheckedBy(new WhiteBishop(), row, col,new BlackBishop()))
             return true;
 
