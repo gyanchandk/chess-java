@@ -10,7 +10,7 @@ import version2.PieceTracker;
 import version2.Team;
 
 public class Bishop extends ChessPiece{
-    ArrayList<Coordinate> moves= new ArrayList<>();
+    
 
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
@@ -22,18 +22,23 @@ public class Bishop extends ChessPiece{
 
     @Override
     public void drawHints(int row, int col) {
-        moves.clear();
-        bishopUtil(row, col, 1, -1);
-        bishopUtil(row, col, -1, -1);
-        bishopUtil(row,col , -1, 1);
-        bishopUtil(row , col, 1, 1);
+        ArrayList<Coordinate> moves= new ArrayList<>();
 
+        getBishopMoves(row, col, moves);
+        
         hl.showHints(moves);
         pt.updatePermissibleCells(moves);
 
     }
 
-    private void bishopUtil(int x,int y,int xOffset,int yOffset){
+    public void getBishopMoves(int row,int col,ArrayList<Coordinate> moves){
+        bishopUtil(row, col, 1, -1,moves);
+        bishopUtil(row, col, -1, -1,moves);
+        bishopUtil(row,col , -1, 1,moves);
+        bishopUtil(row , col, 1, 1,moves);
+    }
+
+    private void bishopUtil(int x,int y,int xOffset,int yOffset,ArrayList<Coordinate> moves){
 
         int nextX=x+xOffset;
         int nextY= y+yOffset;

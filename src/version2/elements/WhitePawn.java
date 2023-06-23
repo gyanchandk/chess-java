@@ -43,16 +43,19 @@ public class WhitePawn extends Pawn{
     public void drawHints(int row, int col) {
         ArrayList<Coordinate> moves= new ArrayList<>();
 
+        boolean oneMoveAhead=false;
+
         if(EnvUtility.check(row-1, col)){
             if(pt.getInfo(row-1, col)==null){
                 moves.add(new Coordinate(row-1, col));
+                oneMoveAhead=true;
             }
         }
 
             
         
         if(EnvUtility.check(row-2, col)){
-            if(!hasMoved){
+            if(!hasMoved && oneMoveAhead && pt.getInfo(row-2, col)==null){
                 moves.add(new Coordinate(row-2, col));
             }
         }

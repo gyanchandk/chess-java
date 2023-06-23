@@ -16,4 +16,10 @@ public class Coordinate {
     public int getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        String str = "("+x+","+y+")";
+        return str;
+    }
 }

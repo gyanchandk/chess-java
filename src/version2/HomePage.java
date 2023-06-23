@@ -3,6 +3,8 @@ package version2;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
+import version2.player.PlayerClock;
+
 public class HomePage extends JFrame{
 
     HomePage(){
@@ -27,6 +29,11 @@ public class HomePage extends JFrame{
         ChessBoard chessBoard = new ChessBoard();
         chessBoard.setBounds(100, 100, 500, 500);
         pane.add(chessBoard,4);
+
+        PlayerClock playerClock = new PlayerClock();
+        playerClock.setBounds(105, 105, 490, 40);
+        pane.add(playerClock,1);
+
 
         setVisible(true);
     }
