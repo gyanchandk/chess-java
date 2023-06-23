@@ -38,6 +38,9 @@ public class ChessRules {
         //System.out.println("called for :"+row+","+col+","+newRow+","+newCol);
         //System.err.println("pieces are ================="+pt.getInfo(row, col)+","+pt.getInfo(newRow, newCol));
 
+        if(pt.getInfo(row, col)==null){
+            System.out.println("team check called for:"+row+","+col+ "  ERROR!!!!!!");
+        }
 
         Team team = pt.getInfo(row, col).getTeam();
 

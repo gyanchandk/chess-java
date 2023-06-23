@@ -43,6 +43,13 @@ public class WhitePawn extends Pawn{
     public void drawHints(int row, int col) {
         ArrayList<Coordinate> moves= new ArrayList<>();
 
+        getMoves(row, col, moves);
+            
+        hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
+    }
+
+    public void getMoves(int row,int col,ArrayList<Coordinate> moves){
         boolean oneMoveAhead=false;
 
         if(EnvUtility.check(row-1, col)){
@@ -73,9 +80,6 @@ public class WhitePawn extends Pawn{
             }
         }
 
-            
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
     }
 
     public boolean isOpponent(int row,int col){

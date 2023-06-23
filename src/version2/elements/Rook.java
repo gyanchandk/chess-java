@@ -10,7 +10,6 @@ import version2.PieceTracker;
 import version2.Team;
 
 public class Rook extends ChessPiece{
-    ArrayList<Coordinate> moves= new ArrayList<>();
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
 
@@ -21,9 +20,15 @@ public class Rook extends ChessPiece{
 
     @Override
     public void drawHints(int row, int col) {
+        ArrayList<Coordinate> moves= new ArrayList<>();
 
-        moves.clear();
+        getMoves(row, col, moves);
 
+        hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
+    }
+
+    public void getMoves(int row,int col, ArrayList<Coordinate> moves){
         //to-left
         for(int nextY=col-1;nextY>=1;nextY--){
             if(EnvUtility.check(row, nextY)){
@@ -94,8 +99,7 @@ public class Rook extends ChessPiece{
             }
         }
 
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
+
     }
 
     @Override

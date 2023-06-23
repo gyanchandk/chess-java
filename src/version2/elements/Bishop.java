@@ -24,14 +24,14 @@ public class Bishop extends ChessPiece{
     public void drawHints(int row, int col) {
         ArrayList<Coordinate> moves= new ArrayList<>();
 
-        getBishopMoves(row, col, moves);
-        
+        getMoves(row, col, moves);
+
         hl.showHints(moves);
         pt.updatePermissibleCells(moves);
 
     }
 
-    public void getBishopMoves(int row,int col,ArrayList<Coordinate> moves){
+    public void getMoves(int row,int col,ArrayList<Coordinate> moves){
         bishopUtil(row, col, 1, -1,moves);
         bishopUtil(row, col, -1, -1,moves);
         bishopUtil(row,col , -1, 1,moves);

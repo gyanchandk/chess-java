@@ -3,6 +3,7 @@ package version2;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -50,5 +51,7 @@ public abstract class ChessPiece {
         g.drawImage(pieceImg, c.getX(), c.getY(), null);
         
     }
+
+    public abstract void getMoves(int row,int col,ArrayList<Coordinate> moves);
 }
 

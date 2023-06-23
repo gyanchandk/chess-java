@@ -4,8 +4,14 @@ import java.util.ArrayList;
 
 import version2.elements.BlackBishop;
 import version2.elements.BlackKing;
+import version2.elements.BlackPawn;
+import version2.elements.BlackQueen;
+import version2.elements.BlackRook;
 import version2.elements.WhiteBishop;
 import version2.elements.WhiteKing;
+import version2.elements.WhitePawn;
+import version2.elements.WhiteQueen;
+import version2.elements.WhiteRook;
 
 public class PieceTracker {
     private ChessPiece  tracker[] = new ChessPiece[64];
@@ -51,17 +57,19 @@ public class PieceTracker {
         
         tracker[index]=piece;
 
+        if(piece==null)return;
+
         if(gameHasStarted){
             getKingsPosition();
-            if(piece instanceof BlackKing){
+            if(piece.getClass().equals(new BlackKing().getClass())){
                 blackKingCoordinate = new Coordinate(row, col);
             }
-            else if(piece instanceof WhiteKing){
+            else if(piece.getClass().equals(new WhiteKing().getClass())){
                 whiteKingCoordinate= new Coordinate(row, col);
             }
 
-
-            isKingChecked(whiteKingCoordinate);
+            isWhiteKingChecked(whiteKingCoordinate);
+            isBlackKingChecked(blackKingCoordinate);
 
         }
 
@@ -95,44 +103,75 @@ public class PieceTracker {
         return blackKingCoordinate;
     }
 
-    public void  isKingChecked(Coordinate kingCoordinate){
+    public boolean isBlackKingChecked(Coordinate c){
 
-        System.out.println("game has started checking if white king is checked");
-        int row= kingCoordinate.getX();
-        int col= kingCoordinate.getY();
+        int row= c.getX();
+        int col= c.getY();
 
-        //assume it is white king
-        ArrayList<Coordinate> moves = new ArrayList<>();
-
-        WhiteBishop whiteBishop = new WhiteBishop();
-        whiteBishop.getBishopMoves(row, col, moves);
-
-        //check if king is inline of bishop
-        checkIfKingInRange(kingCoordinate,new BlackBishop(),moves);
-
+        if(isCheckedBy(new BlackBishop(), row, col, new WhiteBishop()))
+            return true;
         
+        if(isCheckedBy(new BlackRook(), row, col, new WhiteRook()))
+            return true;
+        
+        if(isCheckedBy(new BlackQueen(), row, col, new WhiteQueen()))
+            return true;
+        
+        if(isCheckedBy(new BlackPawn(), row, col, new WhitePawn()))
+            return true;
 
+        return false;
 
     }
 
-    public void checkIfKingInRange(Coordinate kCoordinate,ChessPiece piece,ArrayList<Coordinate> moves){
-        for(Coordinate c:moves){
+    public boolean  isWhiteKingChecked(Coordinate c){
 
-           
+        System.out.println("game has started checking if white king is checked");
+        int row= c.getX();
+        int col= c.getY();
+
+
+        if(isCheckedBy(new WhiteBishop(), row, col,new BlackBishop()))
+            return true;
+
+        if(isCheckedBy(new WhiteRook(), row, col, new BlackRook()))
+            return true;
+
+        if(isCheckedBy(new WhiteQueen(), row, col, new BlackQueen()))
+            return true;
+        
+        if(isCheckedBy(new WhitePawn(), row, col, new BlackPawn()))
+            return true;
+        
+        return false;
+
+    }
+
+    public boolean isCheckedBy(ChessPiece piece,int row,int col,ChessPiece targetPiece){
+        ArrayList<Coordinate> moves = new ArrayList<>();
+
+        piece.getMoves(row,col,moves);
+        return checkIfKingInRange(targetPiece, moves);
+
+    }
+
+    public boolean checkIfKingInRange(ChessPiece piece,ArrayList<Coordinate> moves){
+        for(Coordinate c:moves){
             ChessPiece currPiece = getInfo(c.getX(), c.getY());
 
             if(currPiece==null){
-                System.out.println("null at"+c);
                 continue;
             }
 
-            System.out.println(c+" piece:"+currPiece.getClass()+",target:"+piece.getClass());
-
             if(currPiece.getClass().equals(piece.getClass())){
                 System.out.println("king is checked by:"+piece.getName());
+                return true;
             }
             
         }
+
+        return false;
+
 
     }
 }

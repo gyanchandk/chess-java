@@ -11,7 +11,7 @@ import version2.Team;
 
 public class King extends ChessPiece {
 
-    ArrayList<Coordinate> moves= new ArrayList<>();
+   
 
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
@@ -27,27 +27,10 @@ public class King extends ChessPiece {
     @Override
     public void drawHints(int row, int col) {
         System.out.println(getName()+":"+getMovedStatus());
-        moves.clear();
-        int xOffset[]={-1,0,1,-1,1,-1,0,1};
-        int yOffset[]={-1,-1,-1,0,0,1,1,1};
+        ArrayList<Coordinate> moves= new ArrayList<>();
 
-        for(int i=0;i<8;i++){
-            int nextX= row+xOffset[i];
-            int nextY = col+yOffset[i];
-
-            if(EnvUtility.check(nextX, nextY)){
-                if(rules.checkForSameTeam(row, col, nextX, nextY)){
-                    moves.add(new Coordinate(nextX, nextY));
-                }
-                
-            }
-
-            
-            
-        }
-
-        addHintsForCastling(row);
-
+        getMoves(row, col, moves);
+        
         hl.showHints(moves);
         pt.updatePermissibleCells(moves);
     }
@@ -95,7 +78,7 @@ public class King extends ChessPiece {
 
         return false;
     }
-    public void addHintsForCastling(int row){
+    public void addHintsForCastling(int row,ArrayList<Coordinate> moves){
 
         if(hasMoved)return;
         //king will be in 5th col
@@ -110,6 +93,33 @@ public class King extends ChessPiece {
             moves.add(new Coordinate(row, 7));
         }
 
+
+    }
+
+
+
+    @Override
+    public void getMoves(int row, int col, ArrayList<Coordinate> moves) {
+
+        int xOffset[]={-1,0,1,-1,1,-1,0,1};
+        int yOffset[]={-1,-1,-1,0,0,1,1,1};
+
+        for(int i=0;i<8;i++){
+            int nextX= row+xOffset[i];
+            int nextY = col+yOffset[i];
+
+            if(EnvUtility.check(nextX, nextY)){
+                if(rules.checkForSameTeam(row, col, nextX, nextY)){
+                    moves.add(new Coordinate(nextX, nextY));
+                }
+                
+            }
+
+            
+            
+        }
+
+        addHintsForCastling(row,moves);
 
     }
         

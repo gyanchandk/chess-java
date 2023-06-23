@@ -10,6 +10,7 @@ import version2.PieceTracker;
 import version2.Team;
 
 public class Knight extends ChessPiece{
+
     private PieceTracker pt = PieceTracker.getInstance();
     private HightLightLayer hl = HightLightLayer.getInstance();
 
@@ -27,6 +28,14 @@ public class Knight extends ChessPiece{
     public void drawHints(int row, int col) {
         ArrayList<Coordinate> moves= new ArrayList<>();
 
+        getMoves(row, col, moves);
+
+        hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
+    }
+
+    public void getMoves(int row,int col,ArrayList<Coordinate> moves){
+
         int xOffset[]={-2,-2,-1,-1,1,1,2,2};
         int yOffset[]={1,-1,2,-2,2,-2,1,-1};
 
@@ -43,9 +52,6 @@ public class Knight extends ChessPiece{
 
             }
         }
-
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
     }
     
 }

@@ -40,6 +40,25 @@ public class BlackPawn extends Pawn{
     public void drawHints(int row,int col){
         ArrayList<Coordinate> moves= new ArrayList<>();
 
+        getMoves(row, col, moves);
+        hl.showHints(moves);
+        pt.updatePermissibleCells(moves);
+
+    }
+
+    public boolean isOpponent(int row,int col){
+        ChessPiece piece = pt.getInfo(row, col);
+        
+        if(piece==null)return false;
+
+        Team targetTeam = piece.getTeam();
+
+        if(targetTeam!=Team.BLACK)return true;
+
+        return false;
+    }
+
+    public void getMoves(int row,int col,ArrayList<Coordinate> moves){
         boolean oneMoveAhead=false;
 
         if(EnvUtility.check(row+1, col)){
@@ -70,21 +89,6 @@ public class BlackPawn extends Pawn{
             }
         }
 
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
-
-    }
-
-    public boolean isOpponent(int row,int col){
-        ChessPiece piece = pt.getInfo(row, col);
-        
-        if(piece==null)return false;
-
-        Team targetTeam = piece.getTeam();
-
-        if(targetTeam!=Team.BLACK)return true;
-
-        return false;
     }
     
 }
