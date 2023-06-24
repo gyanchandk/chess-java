@@ -32,6 +32,8 @@ public class WhiteKing extends King{
     }
 
     public ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves){
+
+        if(hasMoved)return moves;
         ArrayList<Coordinate> filteredMoves =new ArrayList<>();
 
         //if (8,4) is not there then (8,3) is not legal and same if(8,6) is not present (8,7) is not legal
@@ -68,6 +70,7 @@ public class WhiteKing extends King{
         return filteredMoves;
 
     }
+
 
 }
 

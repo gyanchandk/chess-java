@@ -26,6 +26,9 @@ public abstract class ChessPiece {
 
         getMoves(row, col, moves);
 
+        System.out.println("moves before filter:");
+        Coordinate.printMoves(moves);
+
         moves=filterMoves(row, col, moves);
 
         if(this instanceof King){
@@ -53,8 +56,10 @@ public abstract class ChessPiece {
             pt.updatePiecePos(newRow, newCol, this);
             
 
-            if(rules.isThisMoveLegal(this,row,col)){
+            if(rules.checkMoveValidity(this)){
                 filteredMoves.add(c);
+            }else{
+                System.out.println("NOT PASSED-------------"+newRow+","+newCol+" does not pass the filter");
             }
 
             

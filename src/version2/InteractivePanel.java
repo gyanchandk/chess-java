@@ -5,8 +5,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import version2.elements.King;
-
 public class InteractivePanel extends JPanel implements MouseListener{
 
     PieceTracker pt = PieceTracker.getInstance();
@@ -31,38 +29,6 @@ public class InteractivePanel extends JPanel implements MouseListener{
         return true;
     }
 
-    public void handleCastling(int row,int newRow,int newCol){
-
-        if(row!=newRow)return;
-
-        if(newCol!=3 && newCol!=7){
-            return;
-        }
-
-        
-
-        if(newCol==3){
-            //a side castling
-            ChessPiece aRook = pt.getInfo(row, 1);
-
-            pt.updatePiecePos(row, 1, row,4,aRook);
-
-            
-
-        }
-
-        if(newCol==7){
-            //h side castling
-            ChessPiece hRook = pt.getInfo(row, 8);
-
-            pt.updatePiecePos(row, 8,row,6, hRook);
-        }
-
-        System.out.println("@@@@@@@@@@@@@@@@castling has done");
-        control.changeTurn();
-
-
-    }
     public void requestForPieceMove(int newRow,int newCol){
 
         
@@ -80,19 +46,6 @@ public class InteractivePanel extends JPanel implements MouseListener{
         if(legalMove){
             //to hightlight king cell if it is in check
             rules.moveConsequence(piece, newRow, newCol);
-        }
-
-        
-
-        //special case of castling
-        if(piece instanceof King){
-            
-            if(legalMove)
-                handleCastling(row, newRow, newCol);
-
-        }
-
-        if(legalMove){
             pieceLayer.repaint();
         }
 
@@ -130,15 +83,11 @@ public class InteractivePanel extends JPanel implements MouseListener{
         if(hintOn){
             requestForPieceMove(row,col);
             hintOn=false;
-            //TODO:delete later
-            //pt.updatePermissibleCells(null);
+    
             return;
         }
 
         hintOn=false;
-
-        //TODO:delete later
-        //pt.updatePermissibleCells(null);
 
 
         ChessPiece piece = pt.getInfo(row, col);

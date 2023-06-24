@@ -3,6 +3,7 @@ package version2;
 import java.util.ArrayList;
 
 import version2.elements.BlackKing;
+import version2.elements.King;
 import version2.elements.WhiteKing;
 
 public class PieceTracker {
@@ -14,6 +15,8 @@ public class PieceTracker {
 
     private Coordinate blackKingCoordinate;
     private Coordinate whiteKingCoordinate;
+
+    private  boolean virtual=false;
 
     private PieceTracker(){
         blackKingCoordinate = new Coordinate(1, 5);
@@ -40,13 +43,37 @@ public class PieceTracker {
 
         if(piece.getClass().equals(new BlackKing().getClass())){
                 setBlackKingCoordinate(new Coordinate(row, col));
+
+                if(virtual)return;
+
+                if(Math.abs(5-col)==2){
+                    System.out.println("black king castling attempted");
+                    
+                    new King().makeRookMoveForCastleing(row, col);
+                    control.changeTurn();
+
+                    
+                }
             }
             else if(piece.getClass().equals(new WhiteKing().getClass())){
                 setWhiteKingCoordinate(new Coordinate(row, col));
+
+                
+
+                if(virtual)return;
+
+                if(Math.abs(5-col)==2){
+                    System.out.println("white king castling attempted");
+                
+                    new King().makeRookMoveForCastleing(row, col);
+                    control.changeTurn();
+                }
             }
     }
 
     public boolean updatePiecePos(int row,int col,ChessPiece piece){
+        virtual =true;
+        
         //this is called when board is set initially.
         int index = EnvUtility.getIndex(row, col);
         tracker[index]=piece;
@@ -56,11 +83,13 @@ public class PieceTracker {
     }
 
     public boolean updatePiecePos(int row, int col,int newRow,int newCol,ChessPiece piece){
+        virtual = false;
 
         //this is called for moves on board after start
         if(piece==null){
+            //BUG:
             System.out.println("Error case ! piece can't be null");
-            return false;
+            //return false;
         }
 
         int oldPosition = EnvUtility.getIndex(row, col);
@@ -69,10 +98,13 @@ public class PieceTracker {
         int newPosition = EnvUtility.getIndex(newRow, newCol);
         tracker[newPosition]=piece;
 
+
         piece.setMoved();
         control.changeTurn();
 
         checkIfKingMovement(newRow, newCol, piece);
+
+        
 
         return true;
 
@@ -84,7 +116,6 @@ public class PieceTracker {
         return tracker[index];
     }
 
-    //TODO:delete later
     public void updatePermissibleCells(ArrayList<Coordinate> cells ){
         permissibleCells = cells;
     }

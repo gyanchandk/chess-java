@@ -29,9 +29,9 @@ public class PieceLayer extends JPanel{
     }
 
     public void addAllPieces(Graphics g){
-        //addPawns();
-        addKnights();
-        addBishops();
+        // addPawns();
+        // addKnights();
+        // addBishops();
         addRooks();
         addQueens();
         addKings();

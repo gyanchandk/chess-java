@@ -75,6 +75,7 @@ public class ChessRules {
 
     public void moveConsequence(ChessPiece piece,int row,int col){
 
+        //TODO: un-comment below line and make futher changes 
         isThisMoveLegal(piece, row, col);
 
         if(whiteKingInCheck){
@@ -86,14 +87,47 @@ public class ChessRules {
         }
     }
 
-    public boolean isThisMoveLegal(ChessPiece piece,int row,int col){
+    public boolean checkMoveValidity(ChessPiece piece){
+
+        if(piece==null){
+
+            //BUG:
+            System.out.println("ERROR!------- checkmovevalidity");
+            
+        }
+
+        Team currTeam = piece.getTeam();
+
+        if(isWhiteKingChecked(pt.getWhiteKingCoordinate())){
+            if(currTeam==Team.WHITE){
+                    System.out.println("Either it is pinned piece /white king comes in check");
+                    return false;
+                }
+        }
+
+        if(isBlackKingChecked(pt.getBlackKingCoordinate())){
+
+            if(currTeam==Team.BLACK){
+                System.out.println("Either it is pinned piece /black king comes in check");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected  boolean isThisMoveLegal(ChessPiece piece,int row,int col){
+
+        System.out.println("==============legal check for: "+row+","+col);
 
         
         //returning true means move is legal:king is not in check or discoved check;
 
         if(piece==null){
+
+            //BUG:
             System.out.println("Error case : piece should not be null!!!!");
-            return false;
+            //return false;
         }
 
         Team currTeam = piece.getTeam();

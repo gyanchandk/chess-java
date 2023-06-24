@@ -122,6 +122,40 @@ public class King extends ChessPiece {
         return false;
     }
 
+    public void makeRookMoveForCastleing(int row,int col){
+        System.out.println("rook movement was called"+row+","+col);
+        if(col==7){
+            //h-rook
+
+            ChessPiece piece = pt.getInfo(row,8);
+
+            if(piece==null){
+                //BUG:
+                System.out.println("@@@@@@@@@@@@@@@@BUG is found");
+            }
+
+            pt.updatePiecePos(row, 8, row, 6, piece);
+
+            
+        }
+
+        if(col==3){
+            //a-rook
+
+            ChessPiece piece = pt.getInfo(row,1);
+
+            if(piece==null){
+                //BUG:
+                System.out.println("@@@@@@@@@@@@@@@@BUG is found");
+            }
+
+            pt.updatePiecePos(row, 1, row, 4, piece);
+
+        }
+
+        
+    }
+
 
         
 }
