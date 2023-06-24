@@ -39,5 +39,10 @@ public class Knight extends ChessPiece{
             }
         }
     }
+    @Override
+    public ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'filterCastleMoves'");
+    }
     
 }

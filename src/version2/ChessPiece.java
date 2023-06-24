@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import version2.elements.King;
+
 public abstract class ChessPiece {
     abstract public String getName();
     abstract public Team getTeam();
@@ -26,9 +28,13 @@ public abstract class ChessPiece {
 
         moves=filterMoves(row, col, moves);
 
-        hl.showHints(moves);
+        if(this instanceof King){
+            moves = filterCastleMoves(moves);
+        }
 
-        //TODO:delete later
+        
+
+        hl.showHints(moves);
         pt.updatePermissibleCells(moves);
 
     }
@@ -50,6 +56,8 @@ public abstract class ChessPiece {
             if(rules.isThisMoveLegal(this,row,col)){
                 filteredMoves.add(c);
             }
+
+            
 
             //revertBack
             pt.updatePiecePos(row,col,this);
@@ -101,5 +109,7 @@ public abstract class ChessPiece {
     }
 
     public abstract void getMoves(int row,int col,ArrayList<Coordinate> moves);
+
+    public abstract ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves);
 }
 

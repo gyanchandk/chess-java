@@ -62,6 +62,7 @@ public class King extends ChessPiece {
 
         if(hasMoved)return;
         //king will be in 5th col
+        //row will be either 1for black king/8 for white king
 
         if(checkForARook(row)){
             System.out.println("******* castling allowed with a rook");
@@ -102,5 +103,20 @@ public class King extends ChessPiece {
         addHintsForCastling(row,moves);
 
     }
+
+    public  ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves){
+        throw new UnsupportedOperationException("Unimplemented method 'filterCastleMoves'");
+    }
+
+    public boolean isCoordinateInMoves(ArrayList<Coordinate> moves,int row,int col){
+        
+        for(Coordinate c:moves){
+            if(c.isEqual(row, col))return true;
+        }
+
+        return false;
+    }
+
+
         
 }

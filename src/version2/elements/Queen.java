@@ -30,5 +30,13 @@ public class Queen extends ChessPiece{
         Rook rook = new Rook();
         rook.getMoves(row, col, moves);
     }
+
+
+
+    @Override
+    public ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'filterCastleMoves'");
+    }
     
 }

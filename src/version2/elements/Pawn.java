@@ -24,5 +24,11 @@ public class Pawn extends ChessPiece{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getMoves'");
     }
+
+    @Override
+    public ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'filterCastleMoves'");
+    }
     
 }

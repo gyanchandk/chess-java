@@ -22,4 +22,8 @@ public class Coordinate {
         String str = "("+x+","+y+")";
         return str;
     }
+
+    public boolean isEqual(int row,int col){
+        return (getX()==row && getY()==col);
+    }
 }

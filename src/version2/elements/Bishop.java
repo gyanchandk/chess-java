@@ -52,5 +52,12 @@ public class Bishop extends ChessPiece{
         throw new UnsupportedOperationException("Unimplemented method 'getTeam'");
     }
 
+
+    @Override
+    public ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'filterCastleMoves'");
+    }
+
     
 }
