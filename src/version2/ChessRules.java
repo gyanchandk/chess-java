@@ -28,6 +28,8 @@ public class ChessRules {
         return instance;
     }
 
+    
+
 
 
     public boolean validate(int newRow,int newCol){
@@ -221,6 +223,12 @@ public class ChessRules {
 
 
     }
+
+    public boolean isCastlingAllowed(){
+        return (!whiteKingInCheck && !blackKingInCheck);
+    }
+
+    
 
 
 }

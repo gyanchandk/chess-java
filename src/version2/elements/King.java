@@ -100,7 +100,12 @@ public class King extends ChessPiece {
             
         }
 
-        addHintsForCastling(row,moves);
+        if(rules.isCastlingAllowed()){
+            System.out.println("CASTELING IS  ALLOWED.....!");
+            addHintsForCastling(row,moves);
+        }
+
+        
 
     }
 
