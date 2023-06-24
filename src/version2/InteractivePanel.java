@@ -69,13 +69,20 @@ public class InteractivePanel extends JPanel implements MouseListener{
         int row=prevState.getX();
         int col = prevState.getY();
 
-        if(!rules.validate(row,col,newRow,newCol)){
+        if(!rules.validate(newRow,newCol)){
             return;
         }
 
         ChessPiece piece = pt.getInfo(row, col);
 
         boolean legalMove= pt.updatePiecePos(row, col, newRow,newCol,piece);
+
+        if(legalMove){
+            //to hightlight king cell if it is in check
+            rules.moveConsequence(piece, newRow, newCol);
+        }
+
+        
 
         //special case of castling
         if(piece instanceof King){
@@ -107,9 +114,6 @@ public class InteractivePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
-        
-
         int row= e.getY()/50;
         int col=e.getX()/50;
         
@@ -117,33 +121,32 @@ public class InteractivePanel extends JPanel implements MouseListener{
 
         hl.setHighlightSquare(row, col);
 
-        System.out.println("===turn==:"+control.getNextTurn());
+        System.out.println("=================turn for===============:"+control.getNextTurn());
 
         if(!hintOn){
             if(!checkForTurn(row, col))return;
         }
-       
-
-
 
         if(hintOn){
             requestForPieceMove(row,col);
             hintOn=false;
-            pt.updatePermissibleCells(null);
+            //TODO:delete later
+            //pt.updatePermissibleCells(null);
             return;
         }
 
         hintOn=false;
-        pt.updatePermissibleCells(null);
 
-        
+        //TODO:delete later
+        //pt.updatePermissibleCells(null);
 
-       
 
         ChessPiece piece = pt.getInfo(row, col);
 
         if(piece!=null){
             piece.drawHints(row,col);
+
+            //store for which hint will be set
             prevState = new Coordinate(row, col);
             hintOn = true;
         }

@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import version2.ChessPiece;
 import version2.Coordinate;
 import version2.EnvUtility;
-import version2.HightLightLayer;
-import version2.PieceTracker;
 import version2.Team;
 
 public class WhitePawn extends Pawn{
     private String imagePath ="/images/wp.png";
-    private HightLightLayer hl = HightLightLayer.getInstance();
-    private PieceTracker pt = PieceTracker.getInstance();
     private int pieceValue;
     private Team team;
     
@@ -37,16 +33,6 @@ public class WhitePawn extends Pawn{
     @Override
     public String getName() {
         return "White Pawn";
-    }
-
-    @Override
-    public void drawHints(int row, int col) {
-        ArrayList<Coordinate> moves= new ArrayList<>();
-
-        getMoves(row, col, moves);
-            
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
     }
 
     public void getMoves(int row,int col,ArrayList<Coordinate> moves){

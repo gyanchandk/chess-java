@@ -5,14 +5,10 @@ import java.util.ArrayList;
 import version2.ChessPiece;
 import version2.Coordinate;
 import version2.EnvUtility;
-import version2.HightLightLayer;
-import version2.PieceTracker;
 import version2.Team;
 
 public class BlackPawn extends Pawn{
     private String imagePath ="/images/bp.png";
-    private HightLightLayer hl = HightLightLayer.getInstance();
-    PieceTracker pt = PieceTracker.getInstance();
     private int pieceValue;
     private Team team;
     
@@ -37,15 +33,6 @@ public class BlackPawn extends Pawn{
         return "Black Pawn";
     }
     
-    public void drawHints(int row,int col){
-        ArrayList<Coordinate> moves= new ArrayList<>();
-
-        getMoves(row, col, moves);
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
-
-    }
-
     public boolean isOpponent(int row,int col){
         ChessPiece piece = pt.getInfo(row, col);
         

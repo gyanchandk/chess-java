@@ -14,12 +14,6 @@ public class Pawn extends ChessPiece{
     }
 
     @Override
-    public void drawHints(int row, int col) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawHints'");
-    }
-
-    @Override
     public Team getTeam() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTeam'");

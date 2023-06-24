@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
 public class EnvUtility {
     public static int width =50;
@@ -38,15 +37,15 @@ public class EnvUtility {
 
     public static Color getBoardColor(){
         Color darkGreenish = new Color(24,120,105);
-        Color purple = new Color(85,24,120);
-        Color lightGray = new Color(84,84,77);
+        // Color purple = new Color(85,24,120);
+        // Color lightGray = new Color(84,84,77);
 
-        Color colors[]={darkGreenish,purple,lightGray};
+        // Color colors[]={darkGreenish,purple,lightGray};
 
-        Random random = new Random();
-        int index = random.nextInt(3);
+        // Random random = new Random();
+        // int index = random.nextInt(3);
 
-        return colors[0];
+        return darkGreenish;
     }
 
     public static Color getHintColor(){

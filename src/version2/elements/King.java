@@ -5,35 +5,15 @@ import java.util.ArrayList;
 import version2.ChessPiece;
 import version2.Coordinate;
 import version2.EnvUtility;
-import version2.HightLightLayer;
-import version2.PieceTracker;
 import version2.Team;
 
 public class King extends ChessPiece {
 
-   
-
-    private PieceTracker pt = PieceTracker.getInstance();
-    private HightLightLayer hl = HightLightLayer.getInstance();
-    protected boolean hasMoved=false;
-    
     @Override
     public String getName() {
         return "King";
     }
 
-    
-
-    @Override
-    public void drawHints(int row, int col) {
-        System.out.println(getName()+":"+getMovedStatus());
-        ArrayList<Coordinate> moves= new ArrayList<>();
-
-        getMoves(row, col, moves);
-        
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
-    }
 
     @Override
     public Team getTeam() {

@@ -14,7 +14,7 @@ public class HightLightLayer extends JPanel{
     private ArrayList<Coordinate> hintSquares;
     private Coordinate kCoordinate;
 
-    private ChessPiece currPiece;
+
 
     private static HightLightLayer instance = new HightLightLayer();
     

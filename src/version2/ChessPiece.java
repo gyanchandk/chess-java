@@ -9,13 +9,61 @@ import javax.imageio.ImageIO;
 
 public abstract class ChessPiece {
     abstract public String getName();
-    abstract public void drawHints(int row,int col);
     abstract public Team getTeam();
 
     protected BufferedImage pieceImg;
     protected int width = EnvUtility.width;
-    protected ChessRules rules = ChessRules.getInstance();
     protected boolean hasMoved=false;
+
+    protected PieceTracker pt = PieceTracker.getInstance();
+    protected HightLightLayer hl = HightLightLayer.getInstance();
+    protected ChessRules rules = ChessRules.getInstance();
+
+    public void drawHints(int row, int col) {
+        ArrayList<Coordinate> moves= new ArrayList<>();
+
+        getMoves(row, col, moves);
+
+        moves=filterMoves(row, col, moves);
+
+        hl.showHints(moves);
+
+        //TODO:delete later
+        pt.updatePermissibleCells(moves);
+
+    }
+    
+    public ArrayList<Coordinate>  filterMoves(int row,int col,ArrayList<Coordinate> moves){
+
+        ArrayList<Coordinate> filteredMoves= new ArrayList<>();
+
+        for(Coordinate c:moves){
+            int newRow=c.getX();
+            int newCol =c.getY();
+
+            ChessPiece targetPiece = pt.getInfo(newRow, newCol);
+            
+            pt.updatePiecePos(row,col,null);
+            pt.updatePiecePos(newRow, newCol, this);
+            
+
+            if(rules.isThisMoveLegal(this,row,col)){
+                filteredMoves.add(c);
+            }
+
+            //revertBack
+            pt.updatePiecePos(row,col,this);
+            pt.updatePiecePos(newRow, newCol, targetPiece);
+
+        }
+
+        System.out.println("Filtered list is:");
+        for(Coordinate c:filteredMoves){
+            System.out.println(c);
+        }
+        return filteredMoves;
+
+    }
 
     public void setMoved(){
         
