@@ -14,22 +14,22 @@ public class WhitePieceFactory {
         
         switch(piece){
             
-            case PAWN:
+            case WHITE_PAWN:
                 return new WhitePawn();
             
-            case KNIGHT:
+            case WHITE_KNIGHT:
                 return new WhiteKnight();
             
-            case BISHOP:
+            case WHITE_BISHOP:
                 return new WhiteBishop();
             
-            case ROOK:
+            case WHITE_ROOK:
                 return new WhiteRook();
             
-            case QUEEN:
+            case WHITE_QUEEN:
                 return new WhiteQueen();
             
-            case KING:
+            case WHITE_KING:
                 return new WhiteKing();
 
 

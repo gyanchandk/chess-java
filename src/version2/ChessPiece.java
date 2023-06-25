@@ -1,98 +1,67 @@
 package version2;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import version2.elements.King;
+import version2.factory.Piece;
 
 public abstract class ChessPiece {
-    abstract public String getName();
-    abstract public Team getTeam();
-
+    protected String imagePath;
     protected BufferedImage pieceImg;
     protected int width = EnvUtility.width;
-    protected boolean hasMoved=false;
-
-    protected PieceTracker pt = PieceTracker.getInstance();
-    protected HightLightLayer hl = HightLightLayer.getInstance();
-    protected ChessRules rules = ChessRules.getInstance();
-
-    public void drawHints(int row, int col) {
-        ArrayList<Coordinate> moves= new ArrayList<>();
-
-        getMoves(row, col, moves);
-
-        System.out.println("moves before filter:");
-        Coordinate.printMoves(moves);
-
-        moves=filterMoves(row, col, moves);
-
-        if(this instanceof King){
-            moves = filterCastleMoves(moves);
-        }
-
-        
-
-        hl.showHints(moves);
-        pt.updatePermissibleCells(moves);
-
-    }
     
-    public ArrayList<Coordinate>  filterMoves(int row,int col,ArrayList<Coordinate> moves){
+    protected Piece pieceType;
+    protected int pieceValue;
+    protected Team team;
+    protected boolean hasMoved;
+    protected PieceTracker pieceTracker = Game.getPieceTracker();
 
-        ArrayList<Coordinate> filteredMoves= new ArrayList<>();
+    abstract public String getName();
+    abstract public ArrayList<Cell> getMovesFor(int row, int col);
 
-        for(Coordinate c:moves){
-            int newRow=c.getX();
-            int newCol =c.getY();
-
-            ChessPiece targetPiece = pt.getInfo(newRow, newCol);
-            
-            pt.updatePiecePos(row,col,null);
-            pt.updatePiecePos(newRow, newCol, this);
-            
-
-            if(rules.checkMoveValidity(this)){
-                filteredMoves.add(c);
-            }else{
-                System.out.println("NOT PASSED-------------"+newRow+","+newCol+" does not pass the filter");
-            }
-
-            
-
-            //revertBack
-            pt.updatePiecePos(row,col,this);
-            pt.updatePiecePos(newRow, newCol, targetPiece);
-
-        }
-
-        System.out.println("Filtered list is:");
-        for(Coordinate c:filteredMoves){
-            System.out.println(c);
-        }
-        return filteredMoves;
-
+    public int getPieceValue() {
+        return pieceValue;
     }
 
-    public void setMoved(){
-        
-        hasMoved = true;
-        System.out.println("########### moved :"+getName()+":"+hasMoved);
+    public Piece getPieceType() {
+        return pieceType;
     }
 
-    public boolean getMovedStatus(){
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
+    public boolean getHasMoved(){
         return hasMoved;
     }
-    
-    public void resetMovedStatus(){
-        
-        hasMoved=false;
-        System.out.println(getName()+":"+hasMoved);
+
+    public BufferedImage getPieceImg(){
+        loadImage(imagePath);
+        return pieceImg;
+
     }
+
+    public boolean isOpponentAt(ChessPiece piece,int row,int col){
+
+        Log.info(this, "Isopponent is called");
+        if(piece == null){
+            Log.error(this, "Seeking opponent for null piece");
+        }
+
+        ChessPiece targetPiece = pieceTracker.getInfo(row, col);
+        if(targetPiece==null)return false;
+        Team targetTeam = targetPiece.getTeam();
+
+        return (targetTeam!=piece.getTeam());
+    }
+
 
     public void loadImage(String imagePath){
         try {
@@ -105,16 +74,6 @@ public abstract class ChessPiece {
         }
     }
 
-    public void addImgToPieceLayer(Graphics g, int row,int col){
-
-        Coordinate c;
-        c = EnvUtility.coordToXY(row,col);
-        g.drawImage(pieceImg, c.getX(), c.getY(), null);
-        
-    }
-
-    public abstract void getMoves(int row,int col,ArrayList<Coordinate> moves);
-
-    public abstract ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves);
+    
 }
 

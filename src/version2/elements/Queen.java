@@ -2,41 +2,23 @@ package version2.elements;
 
 import java.util.ArrayList;
 
+import version2.Cell;
 import version2.ChessPiece;
-import version2.Coordinate;
-import version2.Team;
 
 public class Queen extends ChessPiece{
 
-
+    protected int pieceValue = 9;
+    
     @Override
     public String getName() {
         return "Queen";
     }
 
-
+    @Override
+    public ArrayList<Cell> getMovesFor(int row, int col) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMovesFor'");
+    }
     
-    @Override
-    public Team getTeam() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTeam'");
-    }
-
-    @Override
-    public void getMoves(int row, int col, ArrayList<Coordinate> moves) {
-        Bishop bishop = new Bishop();
-        bishop.getMoves(row, col, moves);
-
-        Rook rook = new Rook();
-        rook.getMoves(row, col, moves);
-    }
-
-
-
-    @Override
-    public ArrayList<Coordinate> filterCastleMoves(ArrayList<Coordinate> moves) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filterCastleMoves'");
-    }
     
 }

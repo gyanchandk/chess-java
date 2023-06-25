@@ -1,25 +1,13 @@
 package version2.elements;
 
 import version2.Team;
+import version2.factory.Piece;
 
 public class WhiteQueen extends Queen{
-    
-    private String imagePath ="/images/wq.png";
-    private int pieceValue;
-    private Team team;
 
     public WhiteQueen(){
-        pieceValue = 5;
         team=Team.WHITE;
-        loadImage(imagePath);
-    }
-
-    public int getPieceValue() {
-        return pieceValue;
-    }
-
-    public Team getTeam() {
-        return team;
+        pieceType=Piece.WHITE_QUEEN;
     }
 
     @Override

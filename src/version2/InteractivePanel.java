@@ -2,106 +2,55 @@ package version2;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 public class InteractivePanel extends JPanel implements MouseListener{
 
-    PieceTracker pt = PieceTracker.getInstance();
-    HightLightLayer hl = HightLightLayer.getInstance();
-    PieceLayer pieceLayer = PieceLayer.getInstance();
-    ChessRules rules = ChessRules.getInstance();
-    private GameControl control = GameControl.getInstance();
-
-    private boolean hintOn=false;
-    private Coordinate prevState;
+    private int width = EnvUtility.width;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     InteractivePanel(){
         setSize(EnvUtility.getPanelDimension());
         setOpaque(false);
         addMouseListener(this);
+
     }
 
-    public boolean check(int row,int col){
-        if(row<1 || row>8 || col<1 || col>8)
-            return false;
-
-        return true;
+    public void attach(Observer observer){
+        observers.add(observer);
     }
-
-    public void requestForPieceMove(int newRow,int newCol){
-
-        
-        int row=prevState.getX();
-        int col = prevState.getY();
-
-        if(!rules.validate(newRow,newCol)){
-            return;
+    
+    private void sendCellDetailsToAll(Cell cell){
+        for(Observer observer:observers){
+            observer.update(cell);
         }
-
-        ChessPiece piece = pt.getInfo(row, col);
-
-        boolean legalMove= pt.updatePiecePos(row, col, newRow,newCol,piece);
-
-        if(legalMove){
-            //to hightlight king cell if it is in check
-            rules.moveConsequence(piece, newRow, newCol);
-            pieceLayer.repaint();
-        }
-
-        
-
     }
 
-    public boolean checkForTurn(int row,int col){
-        ChessPiece piece = pt.getInfo(row, col);
+    public boolean isClickedOnBoard(int row,int col){
+        if(row>=1 && row<=8 && col>=1 && col<=8)
+            return true;
 
-        if(piece==null)return false;
-
-        if(piece.getTeam()!=control.getNextTurn()){
-            return false;
-        }
-
-        return true;
+        return false;
     }
+
+    
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int row= e.getY()/50;
-        int col=e.getX()/50;
-        
-        if(!check(row, col))return;
+        int row= e.getY()/width;
+        int col=e.getX()/width;
 
-        hl.setHighlightSquare(row, col);
-
-        System.out.println("=================turn for===============:"+control.getNextTurn());
-
-        if(!hintOn){
-            if(!checkForTurn(row, col))return;
+        if(!isClickedOnBoard(row, col)){
+            Log.info(this, "Clicked out of board");
+            return ;
         }
 
-        if(hintOn){
-            requestForPieceMove(row,col);
-            hintOn=false;
-    
-            return;
-        }
+        Log.info(this, "Clicked on:"+row+","+col);
 
-        hintOn=false;
-
-
-        ChessPiece piece = pt.getInfo(row, col);
-
-        if(piece!=null){
-            piece.drawHints(row,col);
-
-            //store for which hint will be set
-            prevState = new Coordinate(row, col);
-            hintOn = true;
-        }
-            
-        System.out.println("hint is on:"+hintOn);
-        
+        sendCellDetailsToAll(new Cell(row,col));
 
     }
 

@@ -1,25 +1,14 @@
 package version2.elements;
 
 import version2.Team;
+import version2.factory.Piece;
 
 public class WhiteRook extends Rook{
-    
-    private String imagePath ="/images/whiteRook.png";
-    private int pieceValue;
-    private Team team;
 
     public WhiteRook(){
-        pieceValue = 5;
         team=Team.WHITE;
-        loadImage(imagePath);
-    }
-
-    public int getPieceValue() {
-        return pieceValue;
-    }
-
-    public Team getTeam() {
-        return team;
+        pieceType = Piece.WHITE_ROOK;
+        
     }
 
     @Override

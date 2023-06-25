@@ -21,12 +21,8 @@ public class EnvUtility {
         return  new Coordinate(row+1, col);
     }
 
-    public static Coordinate coordToXY(int row,int col){
-        Coordinate coordinate;
-
-        coordinate = new Coordinate(col*width,row*width);
-
-        return coordinate;
+    public static Cell coordToXY(int row,int col){
+        return new Cell(col*width,row*width);
     }
 
     public static Dimension getPanelDimension(){
@@ -54,6 +50,12 @@ public class EnvUtility {
         return hintColor;
     }
 
+    public static Color getHighLightColor(){
+        Color hColor = Color.YELLOW;
+
+        return hColor;
+    }
+
     public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
@@ -61,12 +63,11 @@ public class EnvUtility {
         return outputImage;
     }
 
-    public static boolean check(int x, int y){
+    public static boolean check(int row, int col){
 
-        if(x<1 || x>8 || y<1 || y>8){
-            return false;
-        }
+        if(row>=1 && row<=8 && col>=1 && col<=8)
+            return true;
 
-        return true;
+        return false;
     }
 }

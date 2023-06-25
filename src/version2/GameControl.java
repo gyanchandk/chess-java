@@ -3,7 +3,6 @@ package version2;
 public class GameControl {
 
     private static GameControl instance = new GameControl();
-    private Stalemate stalemate = new Stalemate();
     private Team nextTurn;
     
 
