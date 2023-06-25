@@ -16,7 +16,9 @@ public class PieceTracker {
         pieceLayer.repaint();
     }
 
-    public void  updatePiecePos(int row, int col,int newRow,int newCol,ChessPiece piece){
+    public void  updatePiecePos(int row, int col,int newRow,int newCol){
+
+        ChessPiece piece = getInfo(row, col);
         if(piece==null){
             Log.error(this, "Trying to move null piece");
         }

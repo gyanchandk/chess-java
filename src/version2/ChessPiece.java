@@ -50,6 +50,8 @@ public abstract class ChessPiece {
 
     public boolean isOpponentAt(ChessPiece piece,int row,int col){
 
+        //TODO:change piece to this.get...
+
         Log.info(this, "Isopponent is called");
         if(piece == null){
             Log.error(this, "Seeking opponent for null piece");

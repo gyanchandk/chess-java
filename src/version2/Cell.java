@@ -28,4 +28,8 @@ public class Cell {
             System.out.println(cell);
         }
     }
+
+    public boolean isequalto(Cell cell){
+        return(this.row==cell.row && this.col==cell.col);
+    }
 }

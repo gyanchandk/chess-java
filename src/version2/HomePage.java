@@ -26,11 +26,11 @@ public class HomePage extends JFrame{
         pieceLayer.setBounds(100,100,500,500);
         pane.add(pieceLayer,2);
 
-        HightLightLayer hightLightLayer = new HightLightLayer(interactivePanel);
+        HightLightLayer hightLightLayer = new HightLightLayer(interactivePanel,pieceTracker);
         hightLightLayer.setBounds(100, 100, 500, 500);
         pane.add(hightLightLayer, 3);
 
-        HintLayer hintLayer = new HintLayer();
+        HintLayer hintLayer = new HintLayer(interactivePanel,pieceTracker);
         hintLayer.setBounds(100, 100, 500, 500);
         pane.add(hintLayer, 3);
 

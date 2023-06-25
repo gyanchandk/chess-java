@@ -13,11 +13,14 @@ public class HightLightLayer extends JPanel implements Observer{
     private final Color focusColor = EnvUtility.getHighLightColor();
     private final int width = EnvUtility.width;
     private final int margin = 2;
+    private PieceTracker pieceTracker;
 
-    HightLightLayer(InteractivePanel interactivePanel){
+    public HightLightLayer(InteractivePanel interactivePanel,PieceTracker pieceTracker){
         setSize(EnvUtility.getPanelDimension());
         setOpaque(false);
         interactivePanel.attach(this);
+
+        this.pieceTracker =pieceTracker;
     }
 
 
@@ -44,6 +47,16 @@ public class HightLightLayer extends JPanel implements Observer{
 
     @Override
     public void update(Cell cell) {
+
+        ChessPiece piece = pieceTracker.getInfo(cell.getRow(), cell.getCol());
+        if(piece==null){
+            return;
+        }
+
+        if(piece.getTeam()!=Game.getTurn()){
+            return;
+        }
+        
         highLightSquare = cell;
         repaint();
     }
