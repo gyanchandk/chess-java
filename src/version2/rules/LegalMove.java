@@ -22,7 +22,11 @@ public class LegalMove {
     
     }
 
-    public void filterMovesFor(Cell cell,ArrayList<Cell>moves){
+    public ArrayList<Cell> filterMovesFor(Cell cell,ArrayList<Cell>moves){
+
+        Log.info(this, "Game turn:"+Game.getTurn());
+
+        ArrayList<Cell> filteredMoves = new ArrayList<>();
 
         board = pieceTracker.getTracker();
 
@@ -36,6 +40,7 @@ public class LegalMove {
         //place piece on each move and check for its validation
         for(Cell currMove:moves){
 
+            boolean passFlag = true;
             board[index]=null;
 
             int newPosition = EnvUtility.getIndex(currMove.getRow(), currMove.getCol());
@@ -43,16 +48,29 @@ public class LegalMove {
             board[newPosition]=piece;
 
             if(new KingCheck().isKingInCheck(board, Team.BLACK)){
-                Log.info(this, "@@@@@@@@@@@@ White king is checked");
+                if(Game.getTurn()==Team.WHITE){
+                    Log.info(this, "!!!!!!!!!!!!! White king in check . illegal move");
+                    passFlag=false;
+                }
             }
 
             if(new KingCheck().isKingInCheck(board, Team.WHITE)){
-                Log.info(this, "@@@@@@@@@@@@ Black king is checked");
+                if(Game.getTurn()==Team.BLACK){
+                    Log.info(this, "!!!!!!!!!!!!! Black king in check . illegal move");
+
+                    passFlag=false;
+                }
             }
 
             //restore everything
             board[index]=piece;
             board[newPosition]=placedPiece;
+
+            if(passFlag){
+                filteredMoves.add(currMove);
+            }
         }
+
+        return filteredMoves;
     }
 }

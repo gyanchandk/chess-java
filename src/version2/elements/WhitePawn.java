@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import version2.Cell;
 import version2.EnvUtility;
+import version2.Game;
 import version2.Log;
 import version2.Team;
 import version2.factory.Piece;
@@ -53,8 +54,19 @@ public class WhitePawn extends Pawn{
                 moves.add(new Cell(row-1, col+1));
             }
         }
+
+        if(row==4){
+            checkForEnpassant(row, col);
+        }
+        
+
+        if(Game.getLeftEnpassant()){
+            moves.add(new Cell(row-1, col-1));
+        }
+        if(Game.getRightEnpassant()){
+            moves.add(new Cell(row-1, col+1));
+        }
         return moves;
     }
 
-    
 }

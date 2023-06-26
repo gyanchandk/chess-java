@@ -48,7 +48,7 @@ public class InteractivePanel extends JPanel implements MouseListener{
             return ;
         }
 
-        Log.info(this, "Clicked on:"+row+","+col);
+        //Log.info(this, "Clicked on:"+row+","+col);
 
         sendCellDetailsToAll(new Cell(row,col));
 

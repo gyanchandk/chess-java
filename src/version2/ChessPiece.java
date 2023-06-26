@@ -17,6 +17,7 @@ public abstract class ChessPiece {
     protected int pieceValue;
     protected Team team;
     protected boolean hasMoved;
+    protected int moveCount=0;
     protected PieceTracker pieceTracker = Game.getPieceTracker();
 
     abstract public String getName();
@@ -36,6 +37,11 @@ public abstract class ChessPiece {
 
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
+        this.moveCount++;
+    }
+
+    public int getMoveCount() {
+        return moveCount;
     }
 
     public boolean getHasMoved(){

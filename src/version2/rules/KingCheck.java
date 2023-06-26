@@ -15,16 +15,16 @@ import version2.elements.Rook;
 
 public class KingCheck {
 
-    private ChessPiece []board;
+    private static ChessPiece []board;
 
-    public ChessPiece getPiece(int row,int col){
+    public static ChessPiece getPiece(int row,int col){
 
         int index=EnvUtility.getIndex(row, col);
         return board[index];
     
     }
 
-    private Cell getKingCell(Team targetTeam){
+    public static Cell getKingCell(Team targetTeam){
 
         Cell cell = new Cell(0, 0);
 
@@ -44,38 +44,57 @@ public class KingCheck {
 
         return cell;
     }
+
     
     public boolean isKingInCheck(ChessPiece []board,Team targetTeam){
 
         
-        this.board = board;
+        KingCheck.board = board;
 
-        Cell kingCell =  targetTeam ==Team.WHITE?
+        Cell kingCell =  (targetTeam ==Team.WHITE)?
             getKingCell(Team.BLACK):getKingCell(Team.WHITE);
 
         int row = kingCell.getRow();
         int col = kingCell.getCol();
 
-        if(isCheckedByPawn(row-1, col-1,targetTeam) ||
-        isCheckedByPawn(row-1, col+1,targetTeam) ){
-            Log.info(this, "king is checked by"+targetTeam+"pawn");
+        if(targetTeam == Team.WHITE){
+            if(isCheckedByPawn(row+1, col-1,targetTeam) ||
+                isCheckedByPawn(row+1, col+1,targetTeam) ){
+                Log.info(this, "king is checked by"+targetTeam+" .. White .. pawn");
+                return true;
         }
 
+        }
+
+        if(targetTeam == Team.BLACK){
+            if(isCheckedByPawn(row-1, col-1,targetTeam) ||
+                isCheckedByPawn(row-1, col+1,targetTeam) ){
+                    Log.info(this, "king is checked by"+targetTeam+"pawn");
+                    return true;
+                }
+        }
+        
+
         if(isCheckedByBishop(row, col,targetTeam)){
-            Log.info(this, " king is checked by "+targetTeam+" bishop/black Queen");
+            Log.info(this, " king is checked by "+targetTeam+" bishop/Queen");
+            return true;
+
         }
 
         if(isCheckedByRook(row, col, targetTeam)){
-            Log.info(this, " king is checked by "+targetTeam+" rook/black Queen");
+            Log.info(this, " king is checked by "+targetTeam+" rook/Queen");
+            return true;
         }
 
 
         if(isCheckedByKnight(row, col, targetTeam)){
             Log.info(this, " king is checked by "+targetTeam+" knight");
+            return true;
         }
 
         if(isCheckedByKing(row, col, targetTeam)){
             Log.info(this," king is checked by "+targetTeam+" King");
+            return true;
         }
 
         return false;

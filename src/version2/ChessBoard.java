@@ -13,6 +13,7 @@ public class ChessBoard extends JPanel {
     ChessBoard(){
         setSize(EnvUtility.getPanelDimension());
         setBorder(BorderFactory.createLineBorder(Color.RED));
+        setBackground(new Color(179,179,179));
     }
 
     public void drawRectangles(Graphics g){

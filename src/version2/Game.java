@@ -8,6 +8,9 @@ public class Game {
     private static HightLightLayer hightLightLayer;
     private static ChessBoard chessBoard;
     private static HintLayer hintLayer;
+    private static Cell recentMoveMadeTo=null;
+    private static boolean leftEnpassant=false;
+    private static boolean rightEnPassant = false;
 
     private static Team turn = Team.WHITE;
 
@@ -34,6 +37,16 @@ public class Game {
         }
 
         System.out.println( "**************** Turn for :"+turn+"*********");
+        Game.leftEnpassant=false;
+        Game.rightEnPassant=false;
+    }
+
+    public static void setRecentMoveMadeTo(Cell recentMoveMadeTo) {
+        Game.recentMoveMadeTo = recentMoveMadeTo;
+    }
+
+    public static Cell getRecentMoveMadeTo() {
+        return recentMoveMadeTo;
     }
 
     public static Team getTurn(){
@@ -58,5 +71,21 @@ public class Game {
 
     public static HintLayer getHintLayer() {
         return hintLayer;
+    }
+
+    public static void setLeftEnpassant(boolean leftEnpassant) {
+        Game.leftEnpassant = leftEnpassant;
+    }
+
+    public static void setRightEnPassant(boolean rightEnPassant) {
+        Game.rightEnPassant = rightEnPassant;
+    }
+
+    public static boolean getLeftEnpassant() {
+        return leftEnpassant;
+    }
+
+    public static boolean getRightEnpassant() {
+        return rightEnPassant;
     }
 }

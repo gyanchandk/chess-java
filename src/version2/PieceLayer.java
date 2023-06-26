@@ -49,7 +49,7 @@ public class PieceLayer extends JPanel{
 
     @Override
     public void paint(Graphics g) {
-        Log.info(this, "Paint method is called");
+        //Log.info(this, "Paint method is called");
 
         super.paint(g);
 

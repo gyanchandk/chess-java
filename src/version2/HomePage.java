@@ -1,5 +1,7 @@
 package version2;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
@@ -13,6 +15,7 @@ public class HomePage extends JFrame{
         setSize(800,800);
         setTitle("Chess");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.BLACK);
 
         JLayeredPane pane = getLayeredPane();
 

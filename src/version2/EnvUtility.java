@@ -32,26 +32,24 @@ public class EnvUtility {
     }
 
     public static Color getBoardColor(){
-        Color darkGreenish = new Color(24,120,105);
-        // Color purple = new Color(85,24,120);
-        // Color lightGray = new Color(84,84,77);
-
-        // Color colors[]={darkGreenish,purple,lightGray};
-
-        // Random random = new Random();
-        // int index = random.nextInt(3);
-
+        Color darkGreenish = new Color(0,102,0);
+     
         return darkGreenish;
     }
 
     public static Color getHintColor(){
-        Color hintColor = new Color(207, 51, 27);
+        Color hintColor = new Color(255, 163, 26);
 
         return hintColor;
     }
 
-    public static Color getHighLightColor(){
-        Color hColor = Color.YELLOW;
+    public static Color getHighLightColorForLightSquare(){
+        Color hColor = new Color(255, 255, 128);
+
+        return hColor;
+    }
+    public static Color getHighLightColorForDarkSquare(){
+        Color hColor = new Color(0, 230, 0);
 
         return hColor;
     }
