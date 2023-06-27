@@ -1,8 +1,9 @@
 package version2;
 
-import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import version2.layers.HintLayer;
@@ -15,9 +16,14 @@ public class HomePage extends JFrame{
         setSize(800,800);
         setTitle("Chess");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        getContentPane().setBackground(Color.BLACK);
+        //getContentPane().setBackground(Color.BLACK);
 
         JLayeredPane pane = getLayeredPane();
+
+        JLabel label = new JLabel("\u2654");
+        label.setBounds(10, 10, 50, 50);
+        label.setFont(new Font("Arial", Font.PLAIN, 35));
+        pane.add(label,1);
 
         InteractivePanel interactivePanel = new InteractivePanel();
         interactivePanel.setBounds(100,100,500,500);
