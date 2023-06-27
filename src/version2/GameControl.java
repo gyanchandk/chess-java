@@ -4,6 +4,8 @@ public class GameControl {
 
     private static GameControl instance = new GameControl();
     private Team nextTurn;
+    
+
 
     private GameControl(){
         nextTurn = Team.WHITE;
@@ -23,6 +25,7 @@ public class GameControl {
         }else{
             nextTurn= Team.WHITE;
         }
+
     }
     
 }

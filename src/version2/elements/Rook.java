@@ -2,97 +2,62 @@ package version2.elements;
 
 import java.util.ArrayList;
 
+import version2.Cell;
 import version2.ChessPiece;
-import version2.Coordinate;
 import version2.EnvUtility;
-import version2.Team;
+import version2.Log;
 
 public class Rook extends ChessPiece{
+
+    protected int pieceValue = 5;
 
     @Override
     public String getName() {
         return "Rook";
     }
 
-
-    public void getMoves(int row,int col, ArrayList<Coordinate> moves){
-        //to-left
-        for(int nextY=col-1;nextY>=1;nextY--){
-            if(EnvUtility.check(row, nextY)){
-
-                if(rules.checkForSameTeam(row, col, row, nextY)){
-                    moves.add(new Coordinate(row, nextY));
-                }
-                else{
-                    break;
-                }
-
-                if(pt.getInfo(row, nextY)!=null){
-                    break;
-                }
-            }
-        }
-        
-        //to-right
-        for(int nextY=col+1;nextY<=8;nextY++){
-            if(EnvUtility.check(row, nextY)){
-
-                if(rules.checkForSameTeam(row, col, row, nextY)){
-                    moves.add(new Coordinate(row, nextY));
-                }
-                else{
-                    break;
-                }
-
-                if(pt.getInfo(row, nextY)!=null){
-                    break;
-                }
-
-                
-                
-            }
-        }
-        //to-down
-        for(int nextX=row+1; nextX<=8;nextX++){
-            if(EnvUtility.check(nextX, col)){
-
-                if(rules.checkForSameTeam(row, col, nextX, col)){
-                    moves.add(new Coordinate(nextX,col));
-                }
-                else{
-                    break;
-                }
-
-                if(pt.getInfo(nextX, col)!=null){
-                    break;
-                }
-            }
-        }
-        
-        //to-up
-        for(int nextX=row-1; nextX>=1;nextX--){
-            if(EnvUtility.check(nextX, col)){
-
-                if(rules.checkForSameTeam(row, col, nextX, col)){
-                    moves.add(new Coordinate(nextX,col));
-                }
-                else{
-                    break;
-                }
-
-                if(pt.getInfo(nextX, col)!=null){
-                    break;
-                }
-            }
-        }
-
-
-    }
-
     @Override
-    public Team getTeam() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTeam'");
+    public ArrayList<Cell> getMovesFor(int row, int col) {
+
+        ArrayList<Cell> moves = new ArrayList<>();
+
+        rookUtil(row, col, 0, -1,moves);
+        rookUtil(row, col, 0, 1,moves) ;
+        rookUtil(row,col , -1, 0,moves) ;
+        rookUtil(row , col, 1, 0,moves);
+
+        return moves;
     }
+
+    private void rookUtil(int x,int y,int xOffset,int yOffset,ArrayList<Cell> moves){
+
+        int nextX=x+xOffset;
+        int nextY= y+yOffset;
+        
+        while(EnvUtility.check(nextX, nextY)){
+
+            Log.error(this,  nextX+","+nextY);
+
+            ChessPiece piece = pieceTracker.getInfo(nextX, nextY);
+
+            if(piece==null){
+
+                moves.add(new Cell(nextX, nextY));
+
+                nextX+=xOffset;
+                nextY+=yOffset;
+                continue;
+            }
+
+            if(piece.getTeam()!=this.getTeam()){
+                moves.add(new Cell(nextX, nextY));
+            }
+
+            break;
+
+        }
+    
+    }
+
     
 }

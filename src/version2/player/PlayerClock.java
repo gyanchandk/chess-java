@@ -14,7 +14,7 @@ public class PlayerClock extends JPanel{
         setSize(400, 50);
         setBackground(Color.MAGENTA);
 
-        playerName = new JLabel("Nihal Sarin  | ");
+        playerName = new JLabel("Gyanchand Kewat  | ");
 
         time = new JLabel("00:00:00");
 

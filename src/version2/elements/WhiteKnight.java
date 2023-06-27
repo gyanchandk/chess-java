@@ -1,25 +1,15 @@
 package version2.elements;
 
 import version2.Team;
+import version2.factory.Piece;
 
 public class WhiteKnight extends Knight{
-    private String imagePath ="/images/whiteKnight.png";
-    private int pieceValue;
-    private Team team;
 
     public WhiteKnight(){
-        pieceValue = 3;
         team = Team.WHITE;
-        loadImage(imagePath);
+        pieceType=Piece.WHITE_KNIGHT;
     }
     
-    public int getPieceValue() {
-        return pieceValue;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
 
     @Override
     public String getName() {

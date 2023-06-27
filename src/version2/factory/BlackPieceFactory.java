@@ -14,22 +14,22 @@ public class BlackPieceFactory {
 
         switch(piece){
             
-            case PAWN:
+            case BLACK_PAWN:
                 return new BlackPawn();
             
-            case KNIGHT:
+            case BLACK_KNIGHT:
                 return new BlackKnight();
 
-            case BISHOP:
+            case BLACK_BISHOP:
                 return new BlackBishop();
             
-            case ROOK:
+            case BLACK_ROOK:
                 return new BlackRook();
             
-            case QUEEN:
+            case BLACK_QUEEN:
                 return new BlackQueen();
             
-            case KING:
+            case BLACK_KING:
                 return new BlackKing();
 
             default:

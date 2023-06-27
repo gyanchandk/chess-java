@@ -13,6 +13,7 @@ public class ChessBoard extends JPanel {
     ChessBoard(){
         setSize(EnvUtility.getPanelDimension());
         setBorder(BorderFactory.createLineBorder(Color.RED));
+        setBackground(new Color(179,179,179));
     }
 
     public void drawRectangles(Graphics g){
@@ -22,10 +23,10 @@ public class ChessBoard extends JPanel {
     
         for(int row=1;row<=8;row++){
             for(int col=1;col<=8;col++){
-                Coordinate coord = EnvUtility.coordToXY(row, col);
+                Cell cell = EnvUtility.coordToXY(row, col);
 
                 Rectangle rectangle = new Rectangle(
-                        coord.getX(), coord.getY(), EnvUtility.width, EnvUtility.width);
+                        cell.getRow(), cell.getCol(), EnvUtility.width, EnvUtility.width);
 
                 g2d.draw(rectangle);
 

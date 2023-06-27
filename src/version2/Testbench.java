@@ -24,6 +24,8 @@ public class Testbench {
             
         }
 
+        System.out.println(moves.size());
+
     
     }
 }
