@@ -17,6 +17,7 @@ public class Game {
 
     private static Team turn = Team.WHITE;
     private static SimpleEngine simpleEngine;
+    private static boolean isEngineOn=false;
 
 
     public Game(InteractivePanel interactivePanel,
@@ -41,8 +42,12 @@ public class Game {
         if(turn == Team.WHITE){
             turn = Team.BLACK;
 
-            Log.info(Game.class, "ready to make engine move");
-            simpleEngine.makeMove();
+        
+            if(Game.isEngineOn){
+                Log.info(Game.class, "ready to make engine move");
+                simpleEngine.makeMove();
+            }
+            
         }else{
             turn = Team.WHITE;
         }
@@ -119,5 +124,9 @@ public class Game {
 
     public static GameStatus getGameStatus() {
         return gameStatus;
+    }
+
+    public static void setEngineOn(boolean isEngineOn) {
+        Game.isEngineOn = isEngineOn;
     }
 }

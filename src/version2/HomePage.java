@@ -2,15 +2,21 @@ package version2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 
 import version2.clock.ClockSetup;
 import version2.layers.HintLayer;
 
-public class HomePage extends JFrame{
+public class HomePage extends JFrame implements ItemListener{
 
     private PieceTracker pieceTracker;
+    private JToggleButton engineBtn;
 
     HomePage(){
         setSize(800,800);
@@ -20,6 +26,15 @@ public class HomePage extends JFrame{
         setLayout(new BorderLayout());
 
         pieceTracker = new PieceTracker();
+        Font font = new Font("Arial", Font.BOLD, 40);
+        JLabel label = new JLabel("engine on");
+        label.setFont(new Font("Arial", Font.BOLD, 40));
+
+        engineBtn = new JToggleButton("Engine is OFF");
+        engineBtn.setFont(font);
+        engineBtn.addItemListener(this);
+        add(engineBtn,BorderLayout.SOUTH);
+        //add(label,BorderLayout.SOUTH);
 
         GameOverLayer gameOverLayer = new GameOverLayer();
         add(gameOverLayer,BorderLayout.CENTER);
@@ -55,6 +70,17 @@ public class HomePage extends JFrame{
         setVisible(true);
     }
 
-   
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+
+        if(engineBtn.isSelected()){
+            engineBtn.setText("Engine is ON");
+            Game.setEngineOn(true);
+        }else{
+            Game.setEngineOn(false);
+            engineBtn.setText("Engine is OFF");
+        }
+        
+    }
     
 }
