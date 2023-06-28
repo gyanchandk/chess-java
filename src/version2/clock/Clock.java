@@ -73,12 +73,12 @@ public class Clock extends TimerTask{
             timer.cancel();
         }
 
-        if(timeInterval==1000){
-            System.out.println("white_time:"+whiteTimeInMilliseconds/1000+
-                    "black_time:"+blackTimeInMilliseconds/1000);
+        // if(timeInterval==1000){
+        //     System.out.println("white_time:"+whiteTimeInMilliseconds/1000+
+        //             "black_time:"+blackTimeInMilliseconds/1000);
             
-            timeInterval=0;
-        }
+        //     timeInterval=0;
+        // }
     }
 
     class ClockTimeFormat{

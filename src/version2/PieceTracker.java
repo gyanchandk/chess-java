@@ -6,6 +6,7 @@ public class PieceTracker {
     private PieceLayer pieceLayer;
 
     private ChessPiece  tracker[] = new ChessPiece[64];
+    private HightLightLayer hightLightLayer = Game.getHightLightLayer();
 
     public void attach(PieceLayer pieceLayer){
         this.pieceLayer = pieceLayer;
@@ -81,6 +82,7 @@ public class PieceTracker {
 
         Game.setRecentMoveMadeTo(new Cell(newRow, newCol));
         piece.setHasMoved(true);
+
 
         pieceLayer.repaint();
 

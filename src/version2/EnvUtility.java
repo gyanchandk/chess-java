@@ -31,6 +31,10 @@ public class EnvUtility {
         return dimension;
     }
 
+    public static Color getDestColor(){
+        return new Color(189,80,217);
+    }
+
     public static Color getBoardColor(){
         Color darkGreenish = new Color(0,102,0);
      

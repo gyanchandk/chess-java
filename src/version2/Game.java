@@ -1,5 +1,6 @@
 package version2;
 
+import version2.chessEngine.SimpleEngine;
 import version2.layers.HintLayer;
 
 public class Game {
@@ -14,6 +15,7 @@ public class Game {
     private static GameStatus gameStatus = GameStatus.ONGOING;
 
     private static Team turn = Team.WHITE;
+    private static SimpleEngine simpleEngine;
 
 
     public Game(InteractivePanel interactivePanel,
@@ -28,11 +30,16 @@ public class Game {
             Game.hintLayer = hintLayer;
             Game.chessBoard = chessBoard;
 
+            simpleEngine = new SimpleEngine(hintLayer, pieceTracker);
+
     }
 
     public static void changeTurn(){
         if(turn == Team.WHITE){
             turn = Team.BLACK;
+
+            Log.info(Game.class, "ready to make engine move");
+            simpleEngine.makeMove();
         }else{
             turn = Team.WHITE;
         }
@@ -44,6 +51,7 @@ public class Game {
 
     public static void setRecentMoveMadeTo(Cell recentMoveMadeTo) {
         Game.recentMoveMadeTo = recentMoveMadeTo;
+        hightLightLayer.updateDestinationSquare(recentMoveMadeTo);
     }
 
     public static Cell getRecentMoveMadeTo() {

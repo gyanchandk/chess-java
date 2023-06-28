@@ -5,26 +5,22 @@ import java.util.ArrayList;
 public class Testbench {
     public static void main(String[] args) {
         
-        ArrayList<Coordinate> moves = new ArrayList<>();
+        ArrayList<Cell> moves = new ArrayList<>();
 
-        moves.add(new Coordinate(2, 3));
-        moves.add(new Coordinate(4,5));
+        moves.add(new Cell(2, 3));
+        moves.add(new Cell(4,5));
 
-        for(Coordinate c:moves){
+       
 
-            if(c.getX()==2){
-                moves.remove(c);
-            }
+        // for(Coordinate c:moves){
+
+        //    System.out.println(c);
             
-        }
+        // }
 
-        for(Coordinate c:moves){
+        // System.out.println(moves.size());
 
-           System.out.println(c);
-            
-        }
-
-        System.out.println(moves.size());
+        System.out.println(moves.get(1));
 
     
     }

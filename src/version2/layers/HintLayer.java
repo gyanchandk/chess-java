@@ -148,5 +148,9 @@ public class HintLayer extends JPanel implements Observer{
         repaint();
 
     }
+
+    public void setKingCell(Cell kingCell) {
+        this.kingCell = kingCell;
+    }
     
 }

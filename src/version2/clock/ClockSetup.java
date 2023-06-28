@@ -18,8 +18,8 @@ public class ClockSetup extends JPanel{
     private int timeInMinutes = 2;
     private int incrementInSecond=2;
 
-    private String player1 = "Gyanchandk kewat";
-    private String player2 = "Magnus Carlsen ";
+    private String player1 = "Stupid Engine";
+    private String player2 = "Noob Player ";
 
     private JLabel whiteTime,blackTime;
     
