@@ -1,5 +1,6 @@
 package version2;
 
+import version2.chessEngine.SimpleEngine;
 import version2.layers.HintLayer;
 
 public class Game {
@@ -8,30 +9,40 @@ public class Game {
     private static HightLightLayer hightLightLayer;
     private static ChessBoard chessBoard;
     private static HintLayer hintLayer;
+    private static GameOverLayer gameOverLayer;
     private static Cell recentMoveMadeTo=null;
     private static boolean leftEnpassant=false;
     private static boolean rightEnPassant = false;
+    private static GameStatus gameStatus = GameStatus.ONGOING;
 
     private static Team turn = Team.WHITE;
+    private static SimpleEngine simpleEngine;
 
 
     public Game(InteractivePanel interactivePanel,
         PieceTracker pieceTracker,
         HightLightLayer hightLightLayer,
         HintLayer hintLayer,
-        ChessBoard chessBoard){
+        ChessBoard chessBoard,
+        GameOverLayer gameOverLayer){
 
             Game.interactivePanel = interactivePanel;
             Game.pieceTracker = pieceTracker;
             Game.hightLightLayer = hightLightLayer;
             Game.hintLayer = hintLayer;
             Game.chessBoard = chessBoard;
+            Game.gameOverLayer= gameOverLayer;
+
+            simpleEngine = new SimpleEngine(hintLayer, pieceTracker);
 
     }
 
     public static void changeTurn(){
         if(turn == Team.WHITE){
             turn = Team.BLACK;
+
+            Log.info(Game.class, "ready to make engine move");
+            simpleEngine.makeMove();
         }else{
             turn = Team.WHITE;
         }
@@ -43,6 +54,7 @@ public class Game {
 
     public static void setRecentMoveMadeTo(Cell recentMoveMadeTo) {
         Game.recentMoveMadeTo = recentMoveMadeTo;
+        hightLightLayer.updateDestinationSquare(recentMoveMadeTo);
     }
 
     public static Cell getRecentMoveMadeTo() {
@@ -87,5 +99,25 @@ public class Game {
 
     public static boolean getRightEnpassant() {
         return rightEnPassant;
+    }
+
+    public static void setGameStatus(GameStatus gameStatus) {
+        Game.gameStatus = gameStatus;
+
+        
+        if(Game.gameStatus == GameStatus.GAME_OVER){
+            String msg;
+            if(turn == Team.WHITE){
+                msg="GAME OVER . BLACK WINS!";
+            }else{
+                 msg="GAME OVER . WHITE WINS!";
+            }
+
+            gameOverLayer.setGameOverMsg(msg);
+        }
+    }
+
+    public static GameStatus getGameStatus() {
+        return gameStatus;
     }
 }

@@ -26,9 +26,13 @@ public class EnvUtility {
     }
 
     public static Dimension getPanelDimension(){
-        Dimension dimension = new Dimension(width*8+50, width*8+50);
+        Dimension dimension = new Dimension(width*8+100, width*8+100);
 
         return dimension;
+    }
+
+    public static Color getDestColor(){
+        return new Color(189,80,217);
     }
 
     public static Color getBoardColor(){

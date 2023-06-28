@@ -40,6 +40,13 @@ public class InteractivePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
+        if(Game.getGameStatus()==GameStatus.GAME_OVER){
+
+            Log.info(this, "!!!!!!!!!!!!!!!Game is over ");
+            return;
+        }
+        
         int row= e.getY()/width;
         int col=e.getX()/width;
 
