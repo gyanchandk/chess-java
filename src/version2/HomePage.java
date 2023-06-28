@@ -1,11 +1,14 @@
 package version2;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+import version2.clock.ClockSetup;
 import version2.layers.HintLayer;
 
 public class HomePage extends JFrame{
@@ -16,8 +19,38 @@ public class HomePage extends JFrame{
         setSize(800,800);
         setTitle("Chess");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //getContentPane().setBackground(Color.BLACK);
+        setBackground(Color.black);
+        setLayout(new BorderLayout());
 
+        pieceTracker = new PieceTracker();
+
+        ClockSetup clockSetup = new ClockSetup();
+        add(clockSetup,BorderLayout.CENTER);
+
+        InteractivePanel interactivePanel = new InteractivePanel();
+        add(interactivePanel,BorderLayout.CENTER);
+
+        PieceLayer pieceLayer = new PieceLayer(pieceTracker);
+        add(pieceLayer,BorderLayout.CENTER);
+
+        HightLightLayer hightLightLayer= new HightLightLayer(interactivePanel, pieceTracker);
+        add(hightLightLayer,BorderLayout.CENTER);
+
+        HintLayer hintLayer = new HintLayer(interactivePanel, pieceTracker);
+        add(hintLayer,BorderLayout.CENTER);
+
+        ChessBoard chessBoard = new ChessBoard();
+        add(chessBoard,BorderLayout.CENTER);
+
+
+
+        new Game(interactivePanel, pieceTracker, hightLightLayer, hintLayer,chessBoard);
+
+        new SetBoard();
+        setVisible(true);
+    }
+
+    public void alternateWay(){
         JLayeredPane pane = getLayeredPane();
 
         JLabel label = new JLabel("\u2654");
@@ -28,6 +61,11 @@ public class HomePage extends JFrame{
         InteractivePanel interactivePanel = new InteractivePanel();
         interactivePanel.setBounds(100,100,500,500);
         pane.add(interactivePanel,1);
+
+        ClockSetup clockSetup = new ClockSetup();
+        clockSetup.setBounds(100,100,500,500);
+        pane.add(clockSetup,1);
+
 
         pieceTracker = new PieceTracker();
 
@@ -54,10 +92,8 @@ public class HomePage extends JFrame{
 
         new Game(interactivePanel, pieceTracker, hightLightLayer, hintLayer,chessBoard);
 
-        new SetBoard();
 
 
-        setVisible(true);
     }
 
     

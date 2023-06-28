@@ -11,6 +11,7 @@ public class Game {
     private static Cell recentMoveMadeTo=null;
     private static boolean leftEnpassant=false;
     private static boolean rightEnPassant = false;
+    private static GameStatus gameStatus = GameStatus.ONGOING;
 
     private static Team turn = Team.WHITE;
 
@@ -87,5 +88,13 @@ public class Game {
 
     public static boolean getRightEnpassant() {
         return rightEnPassant;
+    }
+
+    public static void setGameStatus(GameStatus gameStatus) {
+        Game.gameStatus = gameStatus;
+    }
+
+    public static GameStatus getGameStatus() {
+        return gameStatus;
     }
 }
