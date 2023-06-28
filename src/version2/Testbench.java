@@ -1,27 +1,25 @@
 package version2;
 
-import java.util.ArrayList;
-
 public class Testbench {
-    public static void main(String[] args) {
+    // public static void main(String[] args) {
         
-        ArrayList<Cell> moves = new ArrayList<>();
+    //     ArrayList<Cell> moves = new ArrayList<>();
 
-        moves.add(new Cell(2, 3));
-        moves.add(new Cell(4,5));
+    //     moves.add(new Cell(2, 3));
+    //     moves.add(new Cell(4,5));
 
        
 
-        // for(Coordinate c:moves){
+    //     // for(Coordinate c:moves){
 
-        //    System.out.println(c);
+    //     //    System.out.println(c);
             
-        // }
+    //     // }
 
-        // System.out.println(moves.size());
+    //     // System.out.println(moves.size());
 
-        System.out.println(moves.get(1));
+    //     System.out.println(moves.get(1));
 
     
-    }
+    // }
 }

@@ -18,6 +18,8 @@ public class GameOverLayer extends JPanel{
         label = new JLabel("");
         label.setFont(new Font("Arial", Font.BOLD, 30));
 
+        
+
         add(label,BorderLayout.CENTER);
     }
 
