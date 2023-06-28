@@ -9,6 +9,7 @@ public class Game {
     private static HightLightLayer hightLightLayer;
     private static ChessBoard chessBoard;
     private static HintLayer hintLayer;
+    private static GameOverLayer gameOverLayer;
     private static Cell recentMoveMadeTo=null;
     private static boolean leftEnpassant=false;
     private static boolean rightEnPassant = false;
@@ -22,13 +23,15 @@ public class Game {
         PieceTracker pieceTracker,
         HightLightLayer hightLightLayer,
         HintLayer hintLayer,
-        ChessBoard chessBoard){
+        ChessBoard chessBoard,
+        GameOverLayer gameOverLayer){
 
             Game.interactivePanel = interactivePanel;
             Game.pieceTracker = pieceTracker;
             Game.hightLightLayer = hightLightLayer;
             Game.hintLayer = hintLayer;
             Game.chessBoard = chessBoard;
+            Game.gameOverLayer= gameOverLayer;
 
             simpleEngine = new SimpleEngine(hintLayer, pieceTracker);
 
@@ -100,6 +103,18 @@ public class Game {
 
     public static void setGameStatus(GameStatus gameStatus) {
         Game.gameStatus = gameStatus;
+
+        
+        if(Game.gameStatus == GameStatus.GAME_OVER){
+            String msg;
+            if(turn == Team.WHITE){
+                msg="GAME OVER . BLACK WINS!";
+            }else{
+                 msg="GAME OVER . WHITE WINS!";
+            }
+
+            gameOverLayer.setGameOverMsg(msg);
+        }
     }
 
     public static GameStatus getGameStatus() {
